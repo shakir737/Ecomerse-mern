@@ -46,7 +46,7 @@ useEffect(() => {
   }
   else{
   console.log(detail)}
-}, [detail,getaUser])
+}, [detail,getaUser.cart])
 
 useEffect(() => {
 },[active])
@@ -123,6 +123,7 @@ const cartDetail = () => {
    const removeFromCart = (id, userID) => {
     if(id && userID){
       const data = {id, userID};
+    
       dispatch(deleteFromCart(data));
       dispatch(getuser(userID));
     }
@@ -276,7 +277,7 @@ const cartDetail = () => {
                        <span className="text-[#008000] flex items-center">
                         Remove From Cart <BsCartFill size={30}
                         className="cursor-pointer"
-                        onClick={() => removeFromCart(detail, user._id)}
+                        onClick={() => removeFromCart(detail, getaUser._id)}
                         title="Add To Cart" />
                   </span>
                     ) : active ? (
