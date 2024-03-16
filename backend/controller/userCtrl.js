@@ -399,14 +399,14 @@ const createWishlist = asyncHandler(async (req, res) => {
         message: "Product Already In Wishlist",
       });
     } else{
-      const updateuser = await User.findByIdAndUpdate(
+      const getaUser = await User.findByIdAndUpdate(
         _id,
         {
           $push: { wishlist: id },
         },
         { new: true }
        );
-       res.json(updateuser);
+       res.json({ getaUser });
     }
   } catch (error) {
       throw new Error(error);
@@ -419,14 +419,14 @@ const removeWishlist = asyncHandler(async(req, res) => {
    const { _id } = req.user;
     try {
     
-      const updateuser = await User.findByIdAndUpdate(
+      const getaUser = await User.findByIdAndUpdate(
         _id,
        {
         $pull: { wishlist: id },
         },
        { new: true }
       );
-       res.json(updateuser);
+       res.json({ getaUser });
     
   } catch (error) {
      throw new Error(error);
@@ -437,7 +437,7 @@ const AddToCart =asyncHandler(async(req, res) => {
   const { _id } = req.user;
   const { cartDetail } = req.body.data;
   try {
-            const updateuser = await User.findByIdAndUpdate(
+            const getaUser = await User.findByIdAndUpdate(
            _id,
             {
              $push: {cart: {product: id, cartDetail: cartDetail}}
@@ -445,7 +445,7 @@ const AddToCart =asyncHandler(async(req, res) => {
             },
             { new: true }
          );
-     res.json(updateuser);
+     res.json({ getaUser });
        } catch (error) {
       throw new Error(error);
      }
@@ -493,7 +493,7 @@ const removeCart = asyncHandler(async(req, res) => {
   
   try {
     
-      const updateuser = await User.findByIdAndUpdate(
+      const getaUser = await User.findByIdAndUpdate(
         _id,
         {
            $pull: {cart: {product: id}}
@@ -501,7 +501,7 @@ const removeCart = asyncHandler(async(req, res) => {
         },
         { new: true }
        );
-       res.json(updateuser);
+       res.json({ getaUser });
   
   } catch (error) {
       throw new Error(error);
