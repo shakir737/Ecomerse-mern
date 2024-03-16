@@ -113,6 +113,9 @@ const cartDetail = () => {
    const data = {message, detail};
 
    const result = await dispatch(chat(data));
+   setProductInfo(result.payload);
+   setMessage("");
+   
     
   }
  // const isItemExists = cart && cart.find((i) => i._id === id)
@@ -216,11 +219,11 @@ const cartDetail = () => {
 
             <div className="block w-full 800px:flex">
               <div className="w-full 800px:w-[50%]">
-              {productInfo && !imageUrl ? (
+               {productInfo && !imageUrl ? (
               
             <img src={`${productInfo[0].imageUrls[0]}`} alt="" className="w-[500px] h-[480px]" /> ):(
               <img src={`${imageUrl}`} alt="" className="w-[500px] h-[480px]" /> 
-            )}
+            )} 
                 <div className="flex">
                   
                   {productInfo ? (
@@ -234,7 +237,7 @@ const cartDetail = () => {
                      </div>
                      ))
                     ) 
-                   :null}
+                   :null} 
                     <div>
                       {/* <h3 className={`${styles.shop_name}`}>
                         {data.shop.name}
@@ -244,11 +247,13 @@ const cartDetail = () => {
                   
                 </div>
                 <div
-                  className={`${styles.button} border mt-4 rounded-[4px] h-10`}
+                  className={`${styles.button} border mt-4 rounded-[4px] `}
                 //   onClick={handleMessageSubmit}
                 >
                   Chat: {productInfo ? (productInfo[0].message.map((message) => (
-                  <div> {message.message}</div> 
+                  <div  
+                 // className={`${styles.button} border mt-4 rounded-[4px] `}
+                  > {message.message}</div> 
                   )) ) : null }
                 </div>
                 <div
@@ -263,8 +268,8 @@ const cartDetail = () => {
                       id="message"
                       name="message"
                       placeholder="Chat with Sealer"
-                      onChange={(e) => handleChangeMessage(e)}
-                      value={formData.message}
+                      onChange={(e) => setMessage(e.target.value)}
+                      value={message}
                     />
                     <br />
                     <button  type="submit" className="button">submit</button>

@@ -51,6 +51,7 @@ const initialState = {
   isLoading: false,
   isSuccess: false,
   message: "",
+  product: [],
 };
 export const productSlice = createSlice({
   name: "products",
@@ -98,7 +99,7 @@ export const productSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.products = action.payload;
+        state.product = action.payload;
       })
       .addCase(resetState, () => initialState);
   },

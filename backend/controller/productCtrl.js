@@ -78,7 +78,7 @@ const chatWithSeler = asyncHandler(async(req, res) => {
       new: true,
     }
   );
-  getAllProduct(req, res);
+  res.json([rateProduct]);
 } catch (error) {
   throw new Error(error);
 }
