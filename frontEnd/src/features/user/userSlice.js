@@ -108,14 +108,32 @@ export const userSlice = createSlice({
         state.isError = false;
         state.isSuccess = true;
         state.wishlist = true;
-        state.message = action.error;
+        state.user = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(removeWishlist.fulfilled, (state, action) => {
+        state.isError = false;
+        state.isSuccess = true;
+        state.wishlist = true;
+        state.user = action.payload;
         state.isLoading = false;
       })
       .addCase(updateCart.fulfilled, (state, action) => {
         state.isError = false;
         state.isSuccess = true;
         state.updateCart = true;
-        state.message = action.message;
+        state.user = action.payload;
+      })
+      .addCase(AddToCart.fulfilled, (state, action) => {
+        state.isError = false;
+        state.isSuccess = true;
+        
+        state.user = action.payload;
+      })
+      .addCase(RemoveCart.fulfilled, (state, action) => {
+        state.isError = false;
+        state.isSuccess = true;
+        state.user = action.payload;
       })
     ;
       

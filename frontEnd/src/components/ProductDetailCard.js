@@ -12,7 +12,7 @@ import styles from "../styles/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { getProduct } from "../features/product/productSlice";
 import { useSearchParams } from "react-router-dom";
-import { AddToCart, getuser, removeWishlist, wishlist } from "../features/user/userSlice";
+import { AddToCart, RemoveCart, getuser, removeWishlist, wishlist } from "../features/user/userSlice";
 import { deleteFromCart } from "../features/cart/cartSlice";
 
 
@@ -31,6 +31,7 @@ const [searchparams] = useSearchParams();
   const [click, setClick] = useState(false);
   const [cartInfo, setCartInfo] = useState()
   const [cart, setCart] = useState(false);
+  const [message, setMessage] = useState(false);
   const [active, setActive ] = useState(false);
   const detail = searchparams.get("detail");
   const [formData, setFormData] = useState([{
@@ -39,17 +40,20 @@ const [searchparams] = useSearchParams();
  
   //   const [select, setSelect] = useState(false);
 useEffect(() => {
+  
   if(detail){  
   setOpen(true);
   productDetail(detail);
   cartDetail();
   }
   else{
-  console.log(detail)}
-}, [detail,getaUser])
+  console.log(detail);
+}
+}, [detail, getaUser, active])
 
 useEffect(() => {
 },[active])
+
 const productDetail = (id) => {
   const filterProduct =  productState.filter(product => product._id === id);
   if(filterProduct){
@@ -99,8 +103,15 @@ const cartDetail = () => {
      
     }
   }
+  const handleChangeMessage = (e) => {
+    const data = e.target.value;
+    setMessage(data);
+
+  }
   const handleSubmit = async (e) => {
-    
+   
+     
+     e.preventDefault();
   }
  // const isItemExists = cart && cart.find((i) => i._id === id)
    const addToCart = (id, userID, order) => {
@@ -116,32 +127,37 @@ const cartDetail = () => {
      if(id && status[0] !== true){
       const cart = {id,userID,cartDetail};
       dispatch(AddToCart(cart));
-      dispatch(getuser(userID));
+      // dispatch(getuser(userID));
       
      }
    };
-   const removeFromCart = (id, userID) => {
+   const removeFromCart = async (id, userID) => {
     if(id && userID){
-      const data = {id, userID};
-      dispatch(deleteFromCart(data));
-      dispatch(getuser(userID));
+    const latest = await dispatch(RemoveCart(id));
+    if(latest.type === "cart/remove-cart/fulfilled"){
+      setCart(!cart);
+    }
     }
    }
   useEffect(() => {
   
      if(getaUser){
-      const data = wishlistfilter();
-      if(!getaUser.cart){
-        setCart(false);
-      }else {
+
+    
         getaUser.cart.map((i, index) => {
-          if(i.product === detail)
-          cartFilter(i.product);
-        })
-      }
-     
+          if(i.product === detail){
+            console.log(i.product);
+            cartFilter(i.product);
+          }
+          else {
+            setCart(false);
+          }
+          
+        } )
+      
+     const data = wishlistfilter();
      if(data.length === 1) {
-        setClick(true);
+         setClick(true);
       } else {
         setClick(false);
       }
@@ -154,32 +170,34 @@ const cartDetail = () => {
      if(productInfo){
       // console.log(productInfo.imageUrls)
      }
-  }, []);
+  }, [getaUser]);
   const wishlistfilter = () => {
     const data =  getaUser.wishlist.filter(product => product === detail);
     return data;
   }
   const cartFilter = (id) => {
     const data =  productState.filter(product => product._id === id);
-    const finaldata = data.filter(product => product._id === detail)
+    
+    const finaldata = data.filter(product => product._id === detail);
+    
   
     if(finaldata.length === 1){
       setCart(true);
+    }else {
+      setCart(false);
     }
   }
-  const removeFromWishlistHandler = (id, userID) => {
+  const removeFromWishlistHandler = async (id, userID) => {
     
-    dispatch(removeWishlist(id));
-    setClick(!click);
-    dispatch(getuser(userID));
-
+   const latest = dispatch(removeWishlist(id));
+   
   };
 
-  const addToWishlistHandler = (id, userID) => {
+  const addToWishlistHandler = async (id, userID) => {
     
-    dispatch(wishlist(id));
-    setClick(!click);
-    dispatch(getuser(userID));
+   const latest =  await dispatch(wishlist(id));
+  
+  
    };
      const closeCard = () => {
       setOpen(false);
@@ -239,7 +257,7 @@ const cartDetail = () => {
                       id="message"
                       name="message"
                       placeholder="Chat with Sealer"
-                      onChange={(e) => handleChange(e)}
+                      onChange={(e) => handleChangeMessage(e)}
                       value={formData.message}
                     />
                     <br />
@@ -276,15 +294,15 @@ const cartDetail = () => {
                        <span className="text-[#008000] flex items-center">
                         Remove From Cart <BsCartFill size={30}
                         className="cursor-pointer"
-                        onClick={() => removeFromCart(detail, user._id)}
-                        title="Add To Cart" />
+                        onClick={() => removeFromCart(detail, getaUser._id)}
+                        title="Remove from Cart" />
                   </span>
                     ) : active ? (
                         <span> Please Enter Correct quantity </span>
                     ) :  (  <span className="text-[#008000] flex items-center">
                         Add To Cart <AiOutlineShoppingCart size={30}
                         className="cursor-pointer"
-                        onClick={() => addToCart(detail, user._id, detil)}
+                        onClick={() => addToCart(detail, getaUser._id, detil)}
                         title="Add To Cart" />
                   </span>)) : (
                        <span className="text-[#008000] flex items-center">
@@ -301,14 +319,14 @@ const cartDetail = () => {
                        <span className="text-[#008000] flex items-center">
                         Remove From Wishlist <AiFillHeart size={30}
                         className="cursor-pointer"
-                        onClick={() => removeFromWishlistHandler(detail, user._id)}
+                        onClick={() => removeFromWishlistHandler(detail,getaUser._id)}
                         title="Add To Wishlist" />
                   </span>
                     ) : (
                          <span className="text-[#008000] flex items-center">
                         Add To Wishlist <AiOutlineHeart size={30}
                         className="cursor-pointer"
-                        onClick={() => addToWishlistHandler(detail, user._id)}
+                        onClick={() => addToWishlistHandler(detail, getaUser._id)}
                         title="Add To Wishlist" />
                   </span>
                     )) : (

@@ -56,11 +56,7 @@ return response.data;
 
 const removeCart = async (id, count) => {
   
-  const response = await axios.post(
-    `${base_url}user/removecart`,
-    {id, count},
-    config
-  );
+  const response = await axios.delete(`${base_url}user/removecart/${id}`, config);
 
 return response.data;
 };
