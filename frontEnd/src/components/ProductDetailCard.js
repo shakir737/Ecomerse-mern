@@ -10,7 +10,7 @@ import { RxCross1 } from "react-icons/rx";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../styles/styles";
 import { useDispatch, useSelector } from "react-redux";
-import { getProduct } from "../features/product/productSlice";
+import { chat, getProduct } from "../features/product/productSlice";
 import { useSearchParams } from "react-router-dom";
 import { AddToCart, RemoveCart, getuser, removeWishlist, wishlist } from "../features/user/userSlice";
 import { deleteFromCart } from "../features/cart/cartSlice";
@@ -109,9 +109,11 @@ const cartDetail = () => {
 
   }
   const handleSubmit = async (e) => {
-   
-     
-     e.preventDefault();
+    e.preventDefault();
+   const data = {message, detail};
+
+   const result = await dispatch(chat(data));
+    
   }
  // const isItemExists = cart && cart.find((i) => i._id === id)
    const addToCart = (id, userID, order) => {
@@ -177,11 +179,7 @@ const cartDetail = () => {
   }
   const cartFilter = (id) => {
     const data =  productState.filter(product => product._id === id);
-    
-    const finaldata = data.filter(product => product._id === detail);
-    
-  
-    if(finaldata.length === 1){
+    if(data.length === 1){
       setCart(true);
     }else {
       setCart(false);
@@ -244,6 +242,14 @@ const cartDetail = () => {
                       
                     </div>
                   
+                </div>
+                <div
+                  className={`${styles.button} border mt-4 rounded-[4px] h-10`}
+                //   onClick={handleMessageSubmit}
+                >
+                  Chat: {productInfo ? (productInfo[0].message.map((message) => (
+                  <div> {message.message}</div> 
+                  )) ) : null }
                 </div>
                 <div
                   className={`${styles.button} bg-[#000] mt-4 rounded-[4px] h-10`}

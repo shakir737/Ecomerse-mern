@@ -12,6 +12,11 @@ const createProduct = async (product) => {
 
   return response.data;
 };
+const chat = async (data) => {
+  const response = await axios.post(`${base_url}product/chat/${data.detail}`, data, config);
+
+  return response.data;
+};
 const getProduct = async (id) => {
   const response = await axios.get(`${base_url}product/${id}`, config);
 
@@ -21,6 +26,7 @@ const productService = {
   getProducts,
   createProduct,
   getProduct,
+  chat,
 };
 
 export default productService;

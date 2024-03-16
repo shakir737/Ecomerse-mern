@@ -59,7 +59,30 @@ const updateProduct = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
-
+const chatWithSeler = asyncHandler(async(req, res) => {
+  const {message} = req.body;
+  const {id} = req.params;
+  const { _id } = req.user;
+  try{
+  const rateProduct = await Product.findByIdAndUpdate(
+    id,
+    {
+      $push: {
+        message: {
+          message: message,
+          postedby: _id,
+        },
+      },
+    },
+    {
+      new: true,
+    }
+  );
+  getAllProduct(req, res);
+} catch (error) {
+  throw new Error(error);
+}
+})
 const deleteProduct = asyncHandler(async (req, res) => {
   const id = req.params;
   validateMongoDbId(id);
@@ -227,4 +250,5 @@ module.exports = {
   deleteProduct,
   addToWishlist,
   rating,
+  chatWithSeler,
 };

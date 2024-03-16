@@ -21,6 +21,18 @@ export const createProducts = createAsyncThunk(
     }
   }
 );
+
+export const chat = createAsyncThunk(
+  "product/chat",
+  async (data, thunkAPI ) => {
+    try{
+      return await productService.chat(data);
+    }catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const getProduct = createAsyncThunk(
   "product/get-product",
   async (id, thunkAPI) => {
@@ -81,6 +93,12 @@ export const productSlice = createSlice({
         state.isError = false;
         state.isSuccess = true;
         state.message = action.error;
+      })
+      .addCase(chat.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.products = action.payload;
       })
       .addCase(resetState, () => initialState);
   },
