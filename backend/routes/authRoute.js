@@ -55,13 +55,13 @@ router.post("/getorderbyuser/:id", authMiddleware, getAllOrders);
 router.get("/refresh", handleRefreshToken);
 router.post("/signout", authMiddleware, logout);
 router.get("/wishlist", authMiddleware, getWishlist);
-router.post("/usercart", authMiddleware, AddToCart);
+router.post("/userCart/:id", authMiddleware, AddToCart);
 router.post("/updateCart", authMiddleware, updateCart);
 router.delete("/removecart/:id", authMiddleware, removeCart)
 router.post("/userwishlist", authMiddleware, createWishlist)
 router.post("/removeWishlist", authMiddleware, removeWishlist)
 router.post("/authenticateduser", authMiddleware, authenticatedUser)
-router.get("/:id", authMiddleware, getaUser);
+router.get("/", authMiddleware, getaUser);
 router.delete("/empty-cart", authMiddleware, emptyCart);
 router.delete("/user/:id", deleteaUser);
 router.put("/order/update-order/:id", authMiddleware, isAdmin, updateOrderStatus);
