@@ -66,8 +66,9 @@ a {
   background-color: var(--color-232f3e);
   color: white;
   font-size: 14px;
-  padding: 13px 33px;
-  border-radius: 25px;
+  padding: 9px 33px;
+  margin-top: 0;
+  border-radius: 12px;
 }
 .button:hover {
   background-color: var(--color-febd69);
@@ -804,3 +805,19 @@ footer .input-group-text {
   color: var(--color-777777);
 }
 /* Shipping page ends here */
+.carousel-buttons {
+  background-color: white !important; /*hide buttons by default*/
+  color: white !important; /*hide buttons by default*/
+  transition: none; /*adjust for your fade effect*/
+  display: none;
+
+}
+.carousel:hover {
+  background-color: hsla(0, 0%, 100%, 1); /*show buttons on carousel hover*/
+  color: hsla(0, 0%, 0%, 1); /*show buttons on carousel hover*/
+}
+.carousel-buttons:hover {
+
+  background-color: hsla(25, 50%, 75%, 1)!important; /*important needed for hover on individual button*/
+  color: rgb(247, 245, 245)!important; /*important needed for hover on individual button*/
+}

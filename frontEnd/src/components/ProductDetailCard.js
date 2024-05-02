@@ -208,7 +208,7 @@ const cartDetail = () => {
     <div className="bg-[#fff]">
        
         <div className="fixed w-full h-screen top-0 left-0 bg-[#00000030] z-40 flex items-center justify-center">
-          <div className="w-[90%] 800px:w-[70%] h-[95vh] overflow-y-scroll 800px:h-[85vh] bg-white rounded-md shadow-sm relative p-4">
+          <div className="w-[90%] 800px:w-[90%] h-[90vh] overflow-y-scroll 800px:h-[85vh] bg-white rounded-md shadow-sm relative p-4">
           <button  onClick={closeCard} >
           <RxCross1
               size={30}
@@ -246,36 +246,39 @@ const cartDetail = () => {
                     </div>
                   
                 </div>
+                <div className="border-[8px] shadow rounded-md">
                 <div
-                  className={`${styles.button} border mt-4 rounded-[4px] `}
+                  className={`${styles.button}  `}
                 //   onClick={handleMessageSubmit}
                 >
-                  Chat: {productInfo ? (productInfo[0].message.map((message) => (
+                 <div className=" w-full px-2 border border-[2px] rounded-md flex items-center justify-center"><span className="items-center"><button >Messages </button></span></div>
+                   {productInfo ? (productInfo[0].message.map((message) => (
                   <div  
                  // className={`${styles.button} border mt-4 rounded-[4px] `}
                   > {message.message}</div> 
                   )) ) : null }
                 </div>
-                <div
-                  className={`${styles.button} bg-[#000] mt-4 rounded-[4px] h-10`}
-                //   onClick={handleMessageSubmit}
-                >
-                  <div>
+                
+                
+                  <div className="w-[100%] relative">
                   <form onSubmit={handleSubmit}>
+                  
                   <input
                       type="text"
-                      className="form-control"
+                      className="h-[40px] w-full px-2 border-[#3957db] border-[2px] rounded-md"
                       id="message"
                       name="message"
                       placeholder="Chat with Sealer"
                       onChange={(e) => setMessage(e.target.value)}
                       value={message}
                     />
-                    <br />
-                    <button  type="submit" className="button">submit</button>
+                  
+                  
+                    <button  type="submit" className="button absolute right-1 mr-[-5px] rounded-md-[-2px] cursor-pointer">submit</button>
+                    
                     </form>
                   </div>
-                </div>
+                  </div>
                 
               </div>
 

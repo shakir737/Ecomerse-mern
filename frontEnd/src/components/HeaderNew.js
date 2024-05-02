@@ -101,10 +101,11 @@ if(isAuthenticated){
               onChange={handleSearchChange}
               className="h-[40px] w-full px-2 border-[#3957db] border-[2px] rounded-md"
             />
-            <AiOutlineSearch
+           <AiOutlineSearch
               size={30}
               className="absolute right-2 top-1.5 cursor-pointer"
-            />
+            /> 
+           
             {searchData && searchData.length !== 0 ? (
               <div className="absolute min-h-[30vh] bg-slate-50 shadow-sm-2 z-[9] p-4">
                 {searchData &&

@@ -34,7 +34,7 @@ export const Slide = ({ Products }) => {
   
   ));  
   return (
-    <>
+    <div className=''>
       <Carousel  swipeable={true}
   draggable={true}
   arrows={true}
@@ -45,11 +45,11 @@ export const Slide = ({ Products }) => {
   autoPlaySpeed={5000}
   autoPlay={true}
   transitionDuration={1000}
-  containerClass="carousel-container"
+  containerClass=" carousel-buttons carousel"
   itemClass="carousel-item-padding-40-px">
         {product}
       </Carousel>
-    </>
+    </div>
   );
 }
 export default Slide
