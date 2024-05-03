@@ -18,10 +18,13 @@ const productcategoryRouter = require("./routes/prodcategoryRoute");
 const colorRouter = require("./routes/colorRoute");
 const enqRouter = require("./routes/enqRoute");
 const couponRouter = require("./routes/couponRoute");
+const orderRouter = require("./routes/orderRoute")
 const uploadRouter = require("./routes/uploadRoute");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const cors = require("cors");
+const { authMiddleware } = require("./middlewares/authMiddleware");
+const stripe = require("stripe")(process.env.PAYMENT_SECRET_KEY);
 const cloudinary = require("cloudinary").v2;
 require("dotenv").config();
 cloudinary.config({
@@ -66,7 +69,24 @@ app.use("/api/category", productcategoryRouter);
 app.use("/api/States", StatesRouter);
 app.use("/api/Countries", CountriesRouter);
 app.use("/api/Cities", CitiesRouter )
+app.use("/api/orders", orderRouter)
+app.post("/create-payment-intent", async (req, res) => {
+  
+  const { price } = req.body;
+  const amount = price * 100;
+  // console.log(amount);
 
+  // Create a PaymentIntent 
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: amount,
+    currency: "usd",
+    payment_method_types: ["card"],
+  });
+
+  res.send({
+    clientSecret: paymentIntent.client_secret,
+  });
+});
 app.use(notFound);
 app.use(errorHandler);
 app.listen(PORT, () => {

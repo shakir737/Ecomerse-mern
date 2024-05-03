@@ -399,14 +399,14 @@ const createWishlist = asyncHandler(async (req, res) => {
         message: "Product Already In Wishlist",
       });
     } else{
-      const getaUser = await User.findByIdAndUpdate(
+      const updateuser = await User.findByIdAndUpdate(
         _id,
         {
           $push: { wishlist: id },
         },
         { new: true }
        );
-       res.json({ getaUser });
+       res.json(updateuser);
     }
   } catch (error) {
       throw new Error(error);
@@ -419,23 +419,23 @@ const removeWishlist = asyncHandler(async(req, res) => {
    const { _id } = req.user;
     try {
     
-      const getaUser = await User.findByIdAndUpdate(
+      const updateuser = await User.findByIdAndUpdate(
         _id,
        {
         $pull: { wishlist: id },
         },
        { new: true }
       );
-       res.json({ getaUser });
+       res.json(updateuser);
     
   } catch (error) {
      throw new Error(error);
      }
  })
-const AddToCart =asyncHandler(async(req, res) => {
-  const { id } = req.body.data;
+const AddToCart = asyncHandler(async(req, res) => {
+  const  id  = req.body._id;
   const { _id } = req.user;
-  const { cartDetail } = req.body.data;
+  const { cartDetail } = req.body;
   try {
             const getaUser = await User.findByIdAndUpdate(
            _id,
@@ -445,7 +445,7 @@ const AddToCart =asyncHandler(async(req, res) => {
             },
             { new: true }
          );
-     res.json({ getaUser });
+     res.json({getaUser});
        } catch (error) {
       throw new Error(error);
      }
@@ -453,11 +453,11 @@ const AddToCart =asyncHandler(async(req, res) => {
 );
  
 const updateCart =asyncHandler(async(req, res) => {
-  const { id, color, current } = req.body.data;
+  const { id, color, current } = req.body;
   const { _id } = req.user;
  
   try {
-        const updatedUser = await User.findByIdAndUpdate({
+        const user = await User.findByIdAndUpdate({
           _id,
           "cart": {
             "$elemMatch": {
@@ -473,14 +473,9 @@ const updateCart =asyncHandler(async(req, res) => {
         { "inner.color": color }
     ] },
     )
-      if(updatedUser){
-        res.json(updatedUser).status(200);
-      }
-      else {
-        res.status(509).send({
-          success: false,           
-          message: "Some Thing is Missing",
-        });
+      if(user){
+        const getaUser = await User.findById( _id );
+        res.json({getaUser});
       }
        } catch (error) {
       throw new Error(error);
@@ -501,7 +496,7 @@ const removeCart = asyncHandler(async(req, res) => {
         },
         { new: true }
        );
-       res.json({ getaUser });
+       res.json({getaUser});
   
   } catch (error) {
       throw new Error(error);

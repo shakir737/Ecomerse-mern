@@ -28,6 +28,7 @@ var userSchema = new mongoose.Schema(
        requred: true,
       
     },
+    image:[],
     role: {
       type: String,
       default: "user",
@@ -54,6 +55,7 @@ var userSchema = new mongoose.Schema(
           },
           orderQuantity: {
             type: Number,
+            default: 0,
           },
       }]
         
