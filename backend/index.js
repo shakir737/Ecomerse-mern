@@ -32,7 +32,7 @@ cloudinary.config({
   api_key: "377267562544887",
   api_secret: "2ajdov-hm1YUh2R5EypgM2Jf1_Y",
 });
-const whitelist = ['http://localhost:3000','http://localhost:5173'];
+const whitelist = ['http://localhost:3000','http://localhost:5173','http://localhost:5174'];
 app.options( cors());
 const corsOptions = {
   credentials: true,
