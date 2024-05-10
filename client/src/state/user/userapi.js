@@ -9,7 +9,7 @@ import { userList } from "./userSlice";
             query: () => ({
                 url: "user/all-users",
                 method: "GET", 
-            }),
+        }),
             async onQueryStarted(arg, {queryFulfilled,dispatch}){
                 try{
                     const result = await queryFulfilled;
