@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Children } from "react";
 import {
   Box,
   Divider,
@@ -37,6 +37,10 @@ const navItems = [
   {
     text: "Dashboard",
     icon: <HomeOutlined />,
+    child: {
+      text: "Dashboard",
+      icon: <HomeOutlined />,
+    }
   },
   {
     text: "Client Facing",
