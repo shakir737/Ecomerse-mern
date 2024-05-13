@@ -93,6 +93,11 @@ const navItems = [
   {
     text: "Performance",
     icon: <TrendingUpOutlined />,
+    subMenuItems: [
+      { text: 'All',   icon: <TrendingUpOutlined />,},
+      { text: 'All',   icon: <TrendingUpOutlined />,},
+      { text: 'All',   icon: <TrendingUpOutlined />,},
+    ],
   },
 ];
 
@@ -133,20 +138,9 @@ const Sidebar = ({
         >
           <Box width="100%">
             <Box m="1.5rem 2rem 2rem 3rem">
-              <FlexBetween color={theme.palette.secondary.main}>
-                <Box display="flex" alignItems="center" gap="0.5rem">
-                  <Typography variant="h4" fontWeight="bold">
-                    ECOMVISION
-                  </Typography>
-                </Box>
-                {!isNonMobile && (
-                  <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
-                    <ChevronLeft />
-                  </IconButton>
-                )}
-              </FlexBetween>
+             
             </Box>
-            <List>
+            {/* <List>
               {navItems.map(({ text, icon }) => {
                 if (!icon) {
                   return (
@@ -191,10 +185,11 @@ const Sidebar = ({
                         <ChevronRightOutlined sx={{ ml: "auto" }} />
                       )}
                     </ListItemButton>
+                    
                   </ListItem>
                 );
               })}
-            </List>
+            </List> */}
           </Box>
 
           <Box position="absolute" bottom="2rem">
@@ -209,21 +204,7 @@ const Sidebar = ({
                 borderRadius="50%"
                 sx={{ objectFit: "cover" }}
               />
-              <Box textAlign="left">
-                <Typography
-                  fontWeight="bold"
-                  fontSize="0.9rem"
-                  sx={{ color: theme.palette.secondary[100] }}
-                >
-                  {user.name}
-                </Typography>
-                <Typography
-                  fontSize="0.8rem"
-                  sx={{ color: theme.palette.secondary[200] }}
-                >
-                  {user.occupation}
-                </Typography>
-              </Box>
+             
               <SettingsOutlined
                 sx={{
                   color: theme.palette.secondary[300],

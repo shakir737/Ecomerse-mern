@@ -34,13 +34,7 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
   const handleClose = () => setAnchorEl(null);
 
   return (
-    <AppBar
-      sx={{
-        position: "static",
-        background: "none",
-        boxShadow: "none",
-      }}
-    >
+    <AppBar sx={{ position: "static", background: "none", boxShadow: "none", }} >
       <Toolbar sx={{ justifyContent: "space-between" }}>
         {/* LEFT SIDE */}
         <FlexBetween>
@@ -93,21 +87,7 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
                 borderRadius="50%"
                 sx={{ objectFit: "cover" }}
               />
-              <Box textAlign="left">
-                <Typography
-                  fontWeight="bold"
-                  fontSize="0.85rem"
-                  sx={{ color: theme.palette.secondary[100] }}
-                >
-                  {user.name}
-                </Typography>
-                <Typography
-                  fontSize="0.75rem"
-                  sx={{ color: theme.palette.secondary[200] }}
-                >
-                  {user.occupation}
-                </Typography>
-              </Box>
+            
               <ArrowDropDownOutlined
                 sx={{ color: theme.palette.secondary[300], fontSize: "25px" }}
               />
@@ -118,6 +98,7 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
               onClose={handleClose}
               anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             >
+            
               <MenuItem onClick={handleClose}>Log Out</MenuItem>
             </Menu>
           </FlexBetween>
