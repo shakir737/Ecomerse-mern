@@ -3,6 +3,7 @@ import {
   Box,
   Divider,
   Drawer,
+  Collapse,
   IconButton,
   List,
   ListItem,
@@ -12,6 +13,8 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import ExpandLessOutlinedIcon from '@mui/icons-material/ExpandLessOutlined';
+import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 import {
   SettingsOutlined,
   ChevronLeft,
@@ -37,14 +40,16 @@ const navItems = [
   {
     text: "Dashboard",
     icon: <HomeOutlined />,
-    child: {
+    child: [
+      {
       text: "Dashboard",
       icon: <HomeOutlined />,
-    }
-  },
-  {
-    text: "Client Facing",
-    icon: null,
+    },
+    {
+      text: "Products",
+      icon: <ShoppingCartOutlined />,
+    },
+  ]
   },
   {
     text: "Products",
@@ -62,10 +67,7 @@ const navItems = [
     text: "Geography",
     icon: <PublicOutlined />,
   },
-  {
-    text: "Sales",
-    icon: null,
-  },
+
   {
     text: "Overview",
     icon: <PointOfSaleOutlined />,
@@ -110,6 +112,7 @@ const Sidebar = ({
 }) => {
   const { pathname } = useLocation();
   const [active, setActive] = useState("");
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const theme = useTheme();
 
@@ -140,19 +143,14 @@ const Sidebar = ({
             <Box m="1.5rem 2rem 2rem 3rem">
              
             </Box>
-            {/* <List>
-              {navItems.map(({ text, icon }) => {
-                if (!icon) {
-                  return (
-                    <Typography key={text} sx={{ m: "2.25rem 0 1rem 3rem" }}>
-                      {text}
-                    </Typography>
-                  );
-                }
+             <List>
+              {navItems.map(({ text, icon, child}) => {
+               
                 const lcText = text.toLowerCase();
-
-                return (
-                  <ListItem key={text} disablePadding>
+                if(!child) {
+                 
+                  return (
+                
                     <ListItemButton
                       onClick={() => {
                         navigate(`/${lcText}`);
@@ -186,10 +184,84 @@ const Sidebar = ({
                       )}
                     </ListItemButton>
                     
-                  </ListItem>
+                  
                 );
+                } else {
+                  return (
+                    <>
+                  <ListItemButton
+                      onClick={() => {
+                        setOpen(!open);
+                        setActive(lcText);
+                      }}
+                      sx={{
+                        backgroundColor: "transparent",
+                        color: theme.palette.secondary[100],
+                      }}
+                    >
+                      <ListItemIcon
+                        sx={{
+                          ml: "2rem",
+                          color:
+                            active === lcText
+                              ? theme.palette.grey[500]
+                              : theme.palette.secondary[200],
+                        }}
+                      >
+                        {icon}
+                      </ListItemIcon>
+                      <ListItemText primary={text} />
+                      {active === lcText && (
+                        <ChevronRightOutlined sx={{ ml: "auto" }} />
+                      )}
+                      {open ? <ExpandLessOutlinedIcon /> : <ExpandMoreOutlinedIcon />}
+                    </ListItemButton>
+                    <Collapse in={open} >
+                      <List>
+                        {
+                          child && child?.map(({text, icon}) => {
+                            const childNavigate = text.toLowerCase();
+                           return (
+                              <ListItemButton  onClick={() => {
+                        navigate(`/${childNavigate}`);
+                        setActive(childNavigate);
+                      }}  sx={{
+                        backgroundColor:
+                          active === childNavigate
+                            ? theme.palette.secondary[300]
+                            : "transparent",
+                        color:
+                          active === childNavigate
+                            ? theme.palette.primary[600]
+                            : theme.palette.secondary[100],
+                      }}>
+                              <ListItemIcon
+                        sx={{
+                          ml: "2rem",
+                          color:
+                            active === childNavigate
+                              ? theme.palette.primary[700]
+                              : theme.palette.secondary[300],
+                        }}
+                      >
+                        {icon}
+                      </ListItemIcon>
+                              <ListItemText primary={text} />
+                      {active === childNavigate && (
+                        <ChevronRightOutlined sx={{ ml: "auto" }} />
+                      )}
+                              </ListItemButton>
+                            )
+                        })
+                        }
+                      </List>
+                    </Collapse>
+                    </>
+                  );
+                }
+               
               })}
-            </List> */}
+            </List> 
           </Box>
 
           <Box position="absolute" bottom="2rem">
