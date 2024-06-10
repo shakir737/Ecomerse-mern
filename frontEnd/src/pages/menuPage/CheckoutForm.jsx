@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import {  FaPaypal } from "react-icons/fa";
+// import {  FaPaypal } from "react-icons/fa";
 import axios from "axios";
 
 const CheckoutForm = ({price, cart, users }) => {
@@ -147,7 +147,7 @@ const CheckoutForm = ({price, cart, users }) => {
     
           className="btn  btn-sm mt-5 bg-orange-500 text-white"
         >
-         <FaPaypal /> Pay with Paypal
+         Pay with Paypal
         </button>
       </div>
       </div>

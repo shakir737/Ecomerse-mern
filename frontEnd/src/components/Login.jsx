@@ -1,13 +1,14 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, lazy, Suspense } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FaFacebookF, FaGithub, FaGoogle } from "react-icons/fa";
+
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import { useLoginMutation } from '../state/auth/authapi';
-import OAuth from "./OAuth";
-
+import OAuth from './OAuth';
+const  LinkItem = lazy(() => import("./Link")) ;
 const Login = (props) => {
+
   const {open, setOpen} = props;
   const [errorMessage, seterrorMessage] = useState("");
 
@@ -92,11 +93,10 @@ const Login = (props) => {
                 className="input input-bordered"
                 {...register("password", { required: true })}
               />
-              <label className="label">
-                <a href="#" className="label-text-alt link link-hover mt-2">
-                  Forgot password?
-                </a>
-              </label>
+              <Suspense>
+              <LinkItem text="" linkText="Forget Password" forwardTo="/forgetPassword" />
+              </Suspense>
+              
             </div>
 
             {/* show errors */}
@@ -116,16 +116,13 @@ const Login = (props) => {
                 value="Login"
               />
             </div>
-
-           
-            <p className="text-center my-2">
-              Donot have an account?
-              <Link to="/signup" className="underline text-red ml-1">
-                Signup Now
-              </Link>
-            </p>
+           <Suspense>
+           <LinkItem text=" Donot have an account?" linkText=" Signup Now" forwardTo="/signup" />
+           </Suspense>
+          
+            
           </form>
-    <OAuth /> 
+      <OAuth /> 
     </div>
   </div>
   </>

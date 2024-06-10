@@ -107,42 +107,30 @@ const Sidebar = ({
   user,
   drawerWidth,
   isSidebarOpen,
-  setIsSidebarOpen,
-  isNonMobile,
+  setIsSidebarOpen
 }) => {
   const { pathname } = useLocation();
   const [active, setActive] = useState("");
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const theme = useTheme();
-
   useEffect(() => {
     setActive(pathname.substring(1));
   }, [pathname]);
 
   return (
-    <Box component="nav">
+    <div className="border bg-[color:var(--backGround-color-light)] h-full dark:bg-[color:var(--backGround-color-dark)]">
+    <div className="text-3xl text-center text-black dark:text-white mb-10">
+    <spain> Admin Panel</spain>
+   <div className="mt-7">
+   <hr />
+   </div>
+    </div>
+   
       {isSidebarOpen && (
-        <Drawer
-          open={isSidebarOpen}
-          onClose={() => setIsSidebarOpen(false)}
-          variant="persistent"
-          anchor="left"
-          sx={{
-            width: drawerWidth,
-            "& .MuiDrawer-paper": {
-              color: theme.palette.secondary[200],
-              backgroundColor: theme.palette.background.alt,
-              boxSixing: "border-box",
-              borderWidth: isNonMobile ? 0 : "2px",
-              width: drawerWidth,
-            },
-          }}
-        >
-          <Box width="100%">
-            <Box m="1.5rem 2rem 2rem 3rem">
-             
-            </Box>
+        <div >
+          <div className="w-full">
+           
              <List>
               {navItems.map(({ text, icon, child}) => {
                
@@ -150,122 +138,103 @@ const Sidebar = ({
                 if(!child) {
                  
                   return (
-                
-                    <ListItemButton
-                      onClick={() => {
+                   <div className="w-full hover:bg-[color:var(--hover-color)]">
+                   <div className="flex ml-12 m-4">
+
+                   <button  onClick={() => {
                         navigate(`/${lcText}`);
                         setActive(lcText);
-                      }}
-                      sx={{
-                        backgroundColor:
-                          active === lcText
-                            ? theme.palette.secondary[300]
-                            : "transparent",
-                        color:
-                          active === lcText
-                            ? theme.palette.primary[600]
-                            : theme.palette.secondary[100],
-                      }}
-                    >
-                      <ListItemIcon
-                        sx={{
-                          ml: "2rem",
-                          color:
-                            active === lcText
-                              ? theme.palette.primary[600]
-                              : theme.palette.secondary[200],
-                        }}
-                      >
-                        {icon}
-                      </ListItemIcon>
-                      <ListItemText primary={text} />
-                      {active === lcText && (
-                        <ChevronRightOutlined sx={{ ml: "auto" }} />
-                      )}
-                    </ListItemButton>
-                    
+                    }}>
+                    <div className="flex font-bold">
+                   <div className="">
+                    {icon}
+                  </div>
+                  <div className="ml-9 text-xl font-bold ">
+                  { text}  
+                   
+                  </div>
+                  </div>
+                  </button>
                   
+                   </div>
+                   </div> 
                 );
                 } else {
                   return (
                     <>
-                  <ListItemButton
+                    <div className="w-full hover:bg-[color:var(--hover-color)]">
+                   <div className="flex ml-12 m-4 relative">
+                  <button
                       onClick={() => {
                         setOpen(!open);
-                        setActive(lcText);
-                      }}
-                      sx={{
-                        backgroundColor: "transparent",
-                        color: theme.palette.secondary[100],
-                      }}
-                    >
-                      <ListItemIcon
-                        sx={{
-                          ml: "2rem",
-                          color:
-                            active === lcText
-                              ? theme.palette.grey[500]
-                              : theme.palette.secondary[200],
-                        }}
-                      >
-                        {icon}
-                      </ListItemIcon>
-                      <ListItemText primary={text} />
-                      {active === lcText && (
-                        <ChevronRightOutlined sx={{ ml: "auto" }} />
-                      )}
-                      {open ? <ExpandLessOutlinedIcon /> : <ExpandMoreOutlinedIcon />}
-                    </ListItemButton>
-                    <Collapse in={open} >
+                      }}>
+                     
+                     <div className="flex font-bold">
+                   <div className="">
+                    {icon}
+                  </div>
+                  <div className="ml-9 text-xl font-bold ">
+                  { text}  
+                   
+                  </div>
+                  <div className="absolute top-0 right-0">
+                  {open ? <ExpandLessOutlinedIcon /> : <ExpandMoreOutlinedIcon />}
+                  </div>
+                  </div>
+                     
+                    </button>
+                    </div>
+                    </div>
+                    { open ? (
                       <List>
                         {
                           child && child?.map(({text, icon}) => {
                             const childNavigate = text.toLowerCase();
                            return (
-                              <ListItemButton  onClick={() => {
-                        navigate(`/${childNavigate}`);
-                        setActive(childNavigate);
-                      }}  sx={{
-                        backgroundColor:
-                          active === childNavigate
-                            ? theme.palette.secondary[300]
-                            : "transparent",
-                        color:
-                          active === childNavigate
-                            ? theme.palette.primary[600]
-                            : theme.palette.secondary[100],
-                      }}>
-                              <ListItemIcon
-                        sx={{
-                          ml: "2rem",
-                          color:
-                            active === childNavigate
-                              ? theme.palette.primary[700]
-                              : theme.palette.secondary[300],
-                        }}
-                      >
-                        {icon}
-                      </ListItemIcon>
-                              <ListItemText primary={text} />
-                      {active === childNavigate && (
-                        <ChevronRightOutlined sx={{ ml: "auto" }} />
-                      )}
-                              </ListItemButton>
+                            <div className="w-full hover:bg-[color:var(--hover-color)]">
+                            <div className="flex ml-12 relative">
+                            <button  onClick={() => {
+                                  navigate(`/${childNavigate}`);
+                                  setActive(childNavigate);
+                              }}>
+                       <div className="flex ml-2 font-bold">
+                   <div className="">
+                    {icon}
+                  </div>
+                  <div className="text-xl ml-9 font-bold ">
+                  { text}  
+                   
+                  </div>
+                  </div>
+                      </button>
+                            </div>
+                          
+                            </div>
+                             
                             )
                         })
                         }
                       </List>
-                    </Collapse>
+                     ) : (
+                      <div></div>
+                    )}
+                     
+                   
+                   
                     </>
                   );
                 }
                
               })}
             </List> 
-          </Box>
-
-          <Box position="absolute" bottom="2rem">
-            <Divider />
+          </div>
+ 
+          <div className="w-full mt-20">
+          <hr />
+          </div>
+          <Box position="absolute">
+         
+          
             <FlexBetween textTransform="none" gap="1rem" m="1.5rem 2rem 0 3rem">
               <Box
                 component="img"
@@ -285,9 +254,9 @@ const Sidebar = ({
               />
             </FlexBetween>
           </Box>
-        </Drawer>
+        </div>
       )}
-    </Box>
+    </div>
   );
 };
 

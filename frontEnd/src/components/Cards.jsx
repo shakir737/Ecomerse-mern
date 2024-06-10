@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { FaHeart } from "react-icons/fa";
+// import { FaHeart } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCartMutation } from "../state/user/userapi";
@@ -120,15 +120,15 @@ const handleRemoveFromCart = async(item) => {
         }`}
         onClick={handleHeartClick}
       >
-        <FaHeart className="w-5 h-5 cursor-pointer" />
+        {/* <FaHeart className="w-5 h-5 cursor-pointer" /> */}
       </div>
       <Link to={`/?id=${item._id}`}>
-        <figure>
+        <div className="h-full w-full">
           <img src={imageUrl} alt="Shoes" className="hover:scale-105 transition-all duration-300 md:h-72" />
-        </figure>
+        </div>
       </Link>
       <div className="card-body">
-      <div className="flex">
+      <div className="flex mx-auto max-h-full">
        {item ? (
                     item.imageUrls.map((product) =>(
                       <div onClick={() => setImageUrl(product)} className="flex px-2">

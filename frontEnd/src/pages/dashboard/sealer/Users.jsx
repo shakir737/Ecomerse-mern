@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import { FaTrashAlt, FaUser, FaUsers } from "react-icons/fa";
+// import { FaTrashAlt, FaUser, FaUsers } from "react-icons/fa";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const Users = () => {
@@ -61,13 +61,13 @@ const Users = () => {
                         onClick={() => handleMakeAdmin(user)}
                         className="btn btn-xs btn-circle bg-indigo-500 text-white"
                       >
-                        <FaUsers />
+                       
                       </button>
                     )}
                   </td>
                   <td>
                     <button onClick={() => handleDeleteUser(user)} className="btn btn-xs bg-orange-500 text-white">
-                      <FaTrashAlt />
+                     
                     </button>
                   </td>
                 </tr>

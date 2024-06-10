@@ -1,5 +1,6 @@
 const bodyParser = require("body-parser");
 const express = require("express");
+const compression = require("compression");
 const dbConnect = require("./config/dbConnect");
 const { notFound, errorHandler } = require("./middlewares/errorHandler");
 const app = express();
@@ -55,6 +56,12 @@ dbConnect();
 app.use(bodyParser.json({ limit:'50mb' }))
 app.use(bodyParser.urlencoded({limit:'50mb', extended: true}));
 app.use(cookieParser());
+app.use(compression(
+  {
+    level: 6,
+    threshold: 0,
+  }
+));
 app.use("/api/user", authRouter);
 app.use("/api/product", productRouter);
 app.use("/api/blog", blogRouter);

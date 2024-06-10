@@ -3,9 +3,9 @@ import React, { useState, useEffect } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import { FaHeart} from "react-icons/fa"
+
 import Cards from "../components/Cards";
-import { FaAngleRight, FaAngleLeft  } from "react-icons/fa6";
+// import { FaAngleRight, FaAngleLeft  } from "react-icons/fa6";
 
 
 const SampleNextArrow = (props) => {
@@ -86,13 +86,13 @@ const ProductSlider = (props) => {
         <button onClick={() => slider?.current?.slickPrev()}
         className=" btn p-2 rounded-full ml-5"
         >
-        <FaAngleLeft className=" h-8 w-8 p-1"/>
+        {/* <FaAngleLeft className=" h-8 w-8 p-1"/> */}
         </button>
         <button
           className="bg-green btn p-2 rounded-full ml-5"
           onClick={() => slider?.current?.slickNext()}
         >
-          <FaAngleRight className=" h-8 w-8 p-1"/>
+          {/* <FaAngleRight className=" h-8 w-8 p-1"/> */}
         </button>
       </div>
 

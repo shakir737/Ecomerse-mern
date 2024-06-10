@@ -1,20 +1,20 @@
-import { useState } from 'react'
+import { useState, lazy} from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import Home from './pages/home/Home';
-import Login from './components/Login';
-import Main from './layout/Main';
-import Menu from './pages/menuPage/Menu';
-import CartPage from './pages/menuPage/CartPage';
-import CheckoutForm from './pages/menuPage/CheckoutForm';
-import Payment from './pages/menuPage/Payment';
-import UserProfile from './pages/dashboard/UserProfile';
-import Signup from './components/Signup';
-import Dashboard from './pages/dashboard/sealer/Dashboard';
-import Orders from './pages/dashboard/sealer/Orders';
-import Products from './pages/dashboard/sealer/Products';
+const Home = lazy(() => import('./pages/home/Home')) ;
+const Login = lazy(() => import('./components/Login'));
+const Main  = lazy(() => import('./layout/Main'));
+const Menu = lazy(() => import('./pages/menuPage/Menu'));
+const CartPage = lazy(() => import('./pages/menuPage/CartPage'));
+const CheckoutForm = lazy(() => import( './pages/menuPage/CheckoutForm'));
+const  Payment = lazy(() => import( './pages/menuPage/Payment' ));
+const  UserProfile = lazy(() => import('./pages/dashboard/UserProfile'));
+const  Signup = lazy(() => import( './components/Signup' ));
+const Dashboard = lazy(() => import( './pages/dashboard/sealer/Dashboard'));
+const Orders = lazy(() => import( './pages/dashboard/sealer/Orders' ));
+const Products = lazy(() => import( './pages/dashboard/sealer/Products' ));
 
 function App() {
   

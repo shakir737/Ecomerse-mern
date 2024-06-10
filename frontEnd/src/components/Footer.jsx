@@ -1,11 +1,11 @@
 import React from "react";
-
+import logo from "/logo.png";
 const Footer = () => {
   return (
     <div>
       <footer className="footer xl:px-24 py-10 px-4 text-base-content">
         <aside>
-          <img src="/logo.png" alt="" />
+          <img src={logo} loading="lazy" alt="" />
           <p className="my-3 md:w-40">
             Savor the artistry where every dish is a culinary masterpiece
           </p>

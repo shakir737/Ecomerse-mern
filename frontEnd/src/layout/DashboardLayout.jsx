@@ -1,18 +1,10 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
-import { MdDashboard, MdDashboardCustomize } from "react-icons/md";
-import {
-  FaEdit,
-  FaLocationArrow,
-  FaPlusCircle,
-  FaQuestionCircle,
-  FaRegUser,
-  FaShoppingBag,
-  FaUser,
-} from "react-icons/fa";
+import { MdDashboard} from "react-icons/md";
+
 
 import logo from "/logo.png";
-import { FaCartShopping } from "react-icons/fa6";
+
 import Login from "../components/Login";
 import useAdmin from "../hooks/useAdmin";
 import useAuth from "../hooks/useAuth";
@@ -25,13 +17,13 @@ const sharedLinks = (
       </Link>
     </li>
     <li>
-        <Link to="/menu"><FaCartShopping/> Menu</Link>
+        {/* <Link to="/menu"><FaCartShopping/> Menu</Link> */}
     </li>
     <li>
-        <Link to="/menu"><FaLocationArrow/> Orders Tracking</Link>
+        {/* <Link to="/menu"><FaLocationArrow/> Orders Tracking</Link> */}
     </li>
     <li>
-        <Link to="/menu"><FaQuestionCircle/> Customer Support</Link>
+        {/* <Link to="/menu"><FaQuestionCircle/> Customer Support</Link> */}
     </li>
   </>
 );
@@ -51,10 +43,10 @@ const DashboardLayout = () => {
             htmlFor="my-drawer-2"
             className="btn btn-primary drawer-button lg:hidden"
           >
-            <MdDashboardCustomize />
+            {/* <MdDashboardCustomize /> */}
           </label>
           <button className="btn rounded-full px-6 bg-green flex items-center gap-2 text-white sm:hidden">
-            <FaRegUser /> Logout
+            {/* <FaRegUser /> Logout */}
           </button>
         </div>
         <div className="mt-5 md:mt-2 mx-4">
@@ -78,28 +70,28 @@ const DashboardLayout = () => {
           <hr />
           <li className="mt-3">
             <Link to="/dashboard">
-              <MdDashboard /> Dashboard
+              {/* <MdDashboard /> Dashboard */}
             </Link>
           </li>
           <li>
             <Link to="/dashboard">
-              <FaShoppingBag /> Manage Bookings
+              {/* <FaShoppingBag /> Manage Bookings */}
             </Link>
           </li>
           <li>
             <Link to="/dashboard/add-menu">
-              <FaPlusCircle />
-              Add Menu
+              {/* <FaPlusCircle />
+              Add Menu */}
             </Link>
           </li>
           <li>
             <Link to="/dashboard/manage-items">
-              <FaEdit /> Manage Items
+              {/* <FaEdit /> Manage Items */}
             </Link>
           </li>
           <li className="mb-3">
             <Link to="/dashboard/users">
-              <FaUser /> All Users
+              {/* <FaUser /> All Users */}
             </Link>
           </li>
 

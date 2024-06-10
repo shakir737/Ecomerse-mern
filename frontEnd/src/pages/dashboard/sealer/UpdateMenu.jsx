@@ -1,7 +1,6 @@
 import React from 'react'
 import { useLoaderData, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form';
-import { FaUtensils } from 'react-icons/fa';
 
 const UpdateMenu = () => {
     const item = useLoaderData();
@@ -93,7 +92,7 @@ const UpdateMenu = () => {
           </div>
 
           <button className="btn bg-green text-white px-6">
-            Update Item <FaUtensils />
+            Update Item 
           </button>
         </form>
       </div>

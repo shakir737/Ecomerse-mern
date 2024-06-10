@@ -1,5 +1,5 @@
 import React from "react";
-import { FaUtensils } from "react-icons/fa";
+
 import { useForm } from "react-hook-form";
 
 import Swal from 'sweetalert2'
@@ -93,7 +93,7 @@ const onSubmit = ( ) => {}
           </div>
 
           <button className="btn bg-green text-white px-6">
-            Add Item <FaUtensils />
+            Add Item 
           </button>
         </form>
       </div>

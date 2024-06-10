@@ -5,6 +5,11 @@ export default {
   theme: {
     extend: {},
     extend: {
+      colors: {
+        "backGround-color-light": "var(--backGround-color-light)",
+        "backGround-color-dark": "var(--backGround-color-dark)",
+        "hover-color": "var(--hover-color)",
+      },
       screens: {
         "1000px": "1050px",
         "1100px": "1110px",

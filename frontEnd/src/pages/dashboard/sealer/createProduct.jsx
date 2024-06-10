@@ -8,9 +8,9 @@ import {
 import {app}   from '../../../firebase';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { AiOutlineDelete, AiOutlinePlusCircle } from 'react-icons/ai';
-import { MdOutlineKeyboardArrowDown } from "react-icons/md";
-import { BsLink45Deg, BsPencil } from "react-icons/bs";
+// import { AiOutlineDelete, AiOutlinePlusCircle } from 'react-icons/ai';
+// import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+// import { BsLink45Deg, BsPencil } from "react-icons/bs";
 import { useCreateProductMutation } from '../../../state/products/productsApi';
 import { useUpdateProductMutation } from '../../../state/products/productsApi';
 import { useGetProductMutation } from '../../../state/products/productsApi';
@@ -288,12 +288,12 @@ const CreateProduct = ({ id, setID, setOpen, setUpdated }) => {
                       <div className='mb-3 block'>
                         <div className='w-full flex items-center justify-between'>
                                 <label className="">Product Detail</label>
-                                <AiOutlineDelete className={`${linkIndex === 0 ? "cursor-no-drop" : "cursor-pointer"} text-black dark:text-white text-xl`}
+                                {/* <AiOutlineDelete className={`${linkIndex === 0 ? "cursor-no-drop" : "cursor-pointer"} text-black dark:text-white text-xl`}
                                   onClick={() =>  {
                                     const updatedData = [...detail];
                                     updatedData.splice(linkIndex, 1);
                                     setDetail(updatedData);
-                                    }}/>
+                                    }}/> */}
 
                               </div>
                               <spain>Color :</spain><br />
@@ -324,7 +324,8 @@ const CreateProduct = ({ id, setID, setOpen, setUpdated }) => {
                         setDetail([...detail, {color: "", price: 0, quantity:0}]);
                     
                       }}>
-                        <BsLink45Deg className="mr-2" />Add same product with different color if available
+                        {/* <BsLink45Deg className="mr-2" />*/}
+                        Add same product with different color if available 
                       </p>
                     </div>
                       </div>

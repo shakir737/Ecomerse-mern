@@ -9,6 +9,7 @@ export default function SignIn() {
   const [login,{ isError, isSuccess, data, error}] = useLoginMutation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const mode = useSelector((state) => state.global.mode)
   useEffect(() => {
     if(isSuccess) {
       const message = data?.message || "Login Successfull";
@@ -47,9 +48,9 @@ export default function SignIn() {
     <Toaster position='top-center' reverseOrder={false}  />
     <div  className="min-h-screen  flex flex-col justify-center py-12 sm:px-6 lg:px-8" >
     <div className="sm:mx-auto sm:w-full sm:max-w-md border-shadow border p-10">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-black dark:text-white">
+        <div className="mt-6 text-center text-3xl font-extrabold text-black dark:text-white">
           Login Form
-        </h2>
+        </div>
      <br /> 
      <br /> 
       <form onSubmit={handleSubmit} className='flex flex-col gap-4 '>

@@ -1,7 +1,7 @@
 import React from "react";
 import useMenu from "../../../hooks/useMenu";
 import { Link } from "react-router-dom";
-import { FaEdit, FaTrashAlt } from "react-icons/fa";
+// import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
@@ -73,7 +73,7 @@ const ManageItems = () => {
                   <td>
                     <Link to={`/dashboard/update-menu/${item._id}`}>
                       <button className="btn btn-ghost btn-xs bg-orange-500 text-white">
-                        <FaEdit />
+                        {/* <FaEdit /> */}
                       </button>
                     </Link>
                   </td>
@@ -82,7 +82,7 @@ const ManageItems = () => {
                       onClick={() => handleDeleteItem(item)}
                       className="btn btn-ghost btn-xs text-red"
                     >
-                      <FaTrashAlt />
+                      {/* <FaTrashAlt /> */}
                     </button>
                   </td>
                 </tr>

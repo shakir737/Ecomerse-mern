@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Cards from "../../components/Cards";
-import { FaFilter } from "react-icons/fa";
+// import { FaFilter } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetProductMutation } from "../../state/products/productsApi";
 import { useSearchParams } from "react-router-dom";
@@ -166,7 +166,7 @@ const Menu = () => {
             {/* filter options */}
           <div className="flex justify-end mb-4 rounded-sm">
             <div className="bg-black p-2 ">
-              <FaFilter className="text-white h-4 w-4" />
+              {/* <FaFilter className="text-white h-4 w-4" /> */}
             </div>
             <select
               id="sort"

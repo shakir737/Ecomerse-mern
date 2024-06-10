@@ -1,12 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import logo from "/logo.png";
-import { FaRegUser } from "react-icons/fa";
+
 import Profile from "./Profile";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Login from './Login';
 import { useUserMutation } from "../state/user/userapi";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { productCategory } from './../static/data';
 import DropDown from "./DropDown";
 import NavbarChild from "./NavbarChild";
@@ -57,6 +55,9 @@ const Navbar = () => {
         }`}
       >
         <div className="navbar-start">
+        <Link>
+            <img src="/logo.png" loading="lazy" decoding="async" fetchpriority="high" alt="Foodi" style={{height: "auto", width : "auto"}}/>
+          </Link>
           <div className="dropdown justify-between">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
               <svg
@@ -82,9 +83,7 @@ const Navbar = () => {
 
             </ul>
           </div>
-          <a href="/">
-            <img src={logo} alt="" />
-          </a>
+        
         </div>
        
          
@@ -148,7 +147,7 @@ const Navbar = () => {
             users  ? <>
            <Profile user={users.getaUser}/>
           </> : <button onClick={()=> navigate("/login")} className="btn flex items-center gap-2 rounded-full px-6 bg-green text-white hover:text-[#0000FF]">
-            <FaRegUser /> Login
+            Login
           </button>
           } 
       

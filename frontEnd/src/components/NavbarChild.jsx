@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import DropDown from "./DropDown";
 import { productCategory } from './../static/data';
+// import { IoIosArrowDown } from 'react-icons/io';
+// import { IoIosArrowUp } from 'react-icons/io';
 const NavbarChild = () => {
   const [open, setOpen] = useState(false);
   const [dropDown, setDropDown] = useState(false);
@@ -16,7 +17,7 @@ const NavbarChild = () => {
               <button onClick={() => setDropDown(!dropDown)}
                 className={`${selected == "Products" ? "text-[#00ff00]" : null} flex font-sans text-lg font-[500]`}
               > 
-                Products  {dropDown ? ( <IoIosArrowDown
+                {/* Products  {dropDown ? ( <IoIosArrowDown
                 size={20}
                 className=" cursor-pointer mt-1"
                 onClick={() => setDropDown(!dropDown)}
@@ -26,7 +27,7 @@ const NavbarChild = () => {
                 className=" cursor-pointer mt-1"
                 onClick={() => setDropDown(!dropDown)}
               />
-              )}
+              )} */}
               </button>
              
               {dropDown ? (

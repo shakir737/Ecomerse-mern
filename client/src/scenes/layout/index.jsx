@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, useMediaQuery, CssBaseline } from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Navbar from "../../components/Navbar";
@@ -13,16 +13,19 @@ const Layout = () => {
   const { data } = useGetUserQuery(token);
 
   return (
-    <Box display={isNonMobile ? "flex" : "block"} width="100%" height="100%" className=" bg-white dark:bg-[#031156]">
-      <CssBaseline />
+    <div className= {`bg-white dark:bg-[#031156] w-full h-full flex`}>
+    {
+      isSidebarOpen ? ( 
+      <>
+      <div className=" w-[15%]">
       <Sidebar
         user={data || {}}
-        isNonMobile={isNonMobile}
-        drawerWidth="250px"
+        drawerWidth="15%"
         isSidebarOpen={isSidebarOpen}
         setIsSidebarOpen={setIsSidebarOpen}
       />
-      <Box flexGrow={1}>
+      </div>
+      <div className=" w-[85%]">
         <Navbar
           user={data || {}}
           isSidebarOpen={isSidebarOpen}
@@ -30,8 +33,22 @@ const Layout = () => {
         />
          <Toaster position='top-center' reverseOrder={false}  />
         <Outlet />
-      </Box>
-    </Box>
+      </div>
+      </>
+      ) : (
+        <div className=" w-[100%]">
+        <Navbar
+          user={data || {}}
+          isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
+        />
+         <Toaster position='top-center' reverseOrder={false}  />
+        <Outlet />
+      </div>
+      )
+    }
+     
+    </div>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { FaTrash } from "react-icons/fa";
+// import { FaTrash } from "react-icons/fa";
 import {Link , useNavigate} from 'react-router-dom'
 import { useSelector } from "react-redux";
 import { useUpdateCartMutation } from "../../state/user/userapi";
@@ -260,7 +260,7 @@ return (
                         className="btn btn-sm border-none text-red bg-transparent"
                         onClick={() => handleDelete(item._id, product)}
                       >
-                        <FaTrash />
+                        {/* <FaTrash /> */}
                       </button>
                     </td>
                   </tr>
