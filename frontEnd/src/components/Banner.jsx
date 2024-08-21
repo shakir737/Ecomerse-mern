@@ -19,7 +19,7 @@ const Banner = () => {
          
           open ? ( 
             <div className=" w-[350px] h-[250px] lg:w-[1400px] lg:h-[500px] md:w-[600px] md:h-[250px]">
-            <Image src={bannerImg} height="640" width="959" />
+            {/* <Image src={bannerImg} height="640" width="959" /> */}
             </div>
           ) : ( 
             <div className=" w-[350px] h-[250px] lg:w-[1400px] lg:h-[500px] md:w-[600px] md:h-[250px]">
