@@ -4,11 +4,11 @@ import Image from "./Image";
 
 const Banner = () => {
   const [open, setOpen] = useState(false);
-  React.useEffect(async () => {
-    const getData = await setTimeout(() => {
-      setOpen(true);
-    }, 2500)
-}, [])
+//   useEffect(async () => {
+//      await setTimeout(() => {
+//       setOpen(true);
+//     }, 2500)
+// }, [])
   return (
     <div className="w-full container mx-auto xl:px-24 bg-gradient-to-r from-0% from-[#FAFAFA] to-[#FCFCFC] to-100%">
       <div className="py-24 flex flex-col md:flex-row-reverse items-center justify-between gap-8">
