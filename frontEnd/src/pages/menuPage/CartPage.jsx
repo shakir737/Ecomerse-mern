@@ -4,11 +4,13 @@ import {Link , useNavigate} from 'react-router-dom'
 import { useSelector } from "react-redux";
 import { useUpdateCartMutation } from "../../state/user/userapi";
 import { useDeleteCartMutation} from "../../state/user/userapi";
+import CartSingle from "./CartSingle";
 
 const CartPage = () => {
 
   const { users } = useSelector((state) => state.users);
   const [GrandTotal, setGrandTotal] = useState(1);
+  const [number, setNumber] = useState(0);
   const [cartItems, setCartItems] = useState(users && users.getaUser.cart);
   const [updateCart,{isSuccess, isError, data}] = useUpdateCartMutation();
   const [deleteCart,{isSuccess:issuccess, isError: iserror, data:Data}] = useDeleteCartMutation()
@@ -37,6 +39,7 @@ const CartPage = () => {
     }
   }, []);
   const sliceData = (data, page, rowsPerPage) => {
+    setNumber((page - 1) * rowsPerPage);
     return data.slice((page - 1) * rowsPerPage, page * rowsPerPage);
   };
  
@@ -105,9 +108,9 @@ const CartPage = () => {
               </thead>
               <tbody>
                 {users && cartItems.map((item, index) => (
-                 
+                
                  item.cartDetail.map((i,inde) => (
-                  <CartSingle 
+                  <CartSingle
                      index={index}
                      product={item.product} 
                      item={item}
@@ -117,8 +120,11 @@ const CartPage = () => {
                      quantity={i.quantity}
                      updateCart={updateCart}
                      deleteCart={deleteCart}
+                     number={number}
+                     setNumber={setNumber}
                   />
-                 ))
+                 
+                 )  )
                  
                 ))}
               </tbody>
@@ -173,95 +179,5 @@ const CartPage = () => {
     </div>
   );
 };
-const CartSingle = ({updateCart, deleteCart, index, product, item, price,color, quantity, count}) => {
-  const { products } = useSelector((state) => state.product);
-  const productDetail = products.find(products => products._id === product)
-  const [value, setValue] = useState(count);
-  const [productTotal, setProductTotal ] = useState(price * count)
-  const calculateTotalPrice = (item) => {
-    return item.price * item.quantity;
-  };
-  // Handle quantity increase
-  const handleIncrease = async (val) => {
-   
-    if(val < quantity){
-      setValue(value + 1);
-      const current = value + 1;
-      const prodTotal = price * current;
-      setProductTotal(prodTotal);
-      const data = { current, id:product, color};
-      updateCart(data);
-    
-     } 
-  };
-  // Handle quantity decrease
-  const handleDecrease = async (val) => {
-    if( val > 0){
-      setValue(value - 1);
-      const current = value - 1;
-      const prodTotal = price * current;
-      setProductTotal(prodTotal);
-      const data = { current, id:product, color};
-      updateCart(data)
-      
-    }
-  };
-  const handleDelete = async (itemID, productID) => {
-    const data = {itemID, productID}
-    console.log(data);
-    deleteCart(data);
-  }
-return (
-  <>
-     <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>
-                      <div className="avatar">
-                        <div className="mask mask-squircle w-12 h-12">
-                         <img
-                            src={`${productDetail.imageUrls[0]}`}
-                            alt="Avatar Tailwind CSS Component"
-                          /> 
-                        </div>
-                      </div>
-                    </td>
-                     <td className="font-medium">{productDetail.category}</td>
-                     <td className="font-medium">{productDetail.brand}</td> 
-                     <td className="font-medium">{productDetail.title}</td> 
-                     <td className="font-medium">{color}</td> 
-                     
-                    <td>
-                      <button
-                        className="btn btn-xs"
-                        onClick={() => handleDecrease(value)}
-                      >
-                        -
-                      </button>
-                      <input
-                        type="number"
-                        value={value}
-                        onChange={() => console.log(count)}
-                        className="w-10 mx-2 text-center overflow-hidden appearance-none"
-                      />
-                      <button
-                        className="btn btn-xs"
-                        onClick={() => handleIncrease(value)}
-                      >
-                        +
-                      </button>
-                    </td>
-                    <td className="font-medium">${price}/-</td> 
-                    <td>${productTotal}</td>
-                    <td>
-                      <button
-                        className="btn btn-sm border-none text-red bg-transparent"
-                        onClick={() => handleDelete(item._id, product)}
-                      >
-                        {/* <FaTrash /> */}
-                      </button>
-                    </td>
-                  </tr>
-  </>
-);
-}
+
 export default CartPage;
