@@ -9,12 +9,14 @@ const CartPage = () => {
 
   const { users } = useSelector((state) => state.users);
   const [GrandTotal, setGrandTotal] = useState(1);
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(users && users.getaUser.cart);
   const [updateCart,{isSuccess, isError, data}] = useUpdateCartMutation();
   const [deleteCart,{isSuccess:issuccess, isError: iserror, data:Data}] = useDeleteCartMutation()
   const Navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(8); // Number of items to display per page
+  const [itemsPerPage] = useState(6); // Number of items to display per page
+
+
   useEffect(() => {
     // calculate Total Price 
     if(users ){
@@ -28,11 +30,25 @@ const CartPage = () => {
       })
       
     }
-   
-    
-   
+    if(users && cartItems.length > 0) {
+
+      const slice =  sliceData(users && users.getaUser.cart, currentPage, itemsPerPage)
+      setCartItems(slice);
+    }
   }, []);
-  
+  const sliceData = (data, page, rowsPerPage) => {
+    return data.slice((page - 1) * rowsPerPage, page * rowsPerPage);
+  };
+ 
+
+   useEffect(() => {
+    
+    if(users && cartItems.length > 0) {
+
+      const slice =  sliceData(users && users.getaUser.cart, currentPage, itemsPerPage)
+      setCartItems(slice);
+    }
+   }, [currentPage])
    useEffect(() => {
     if(users) {
       let productTotal = 0;
@@ -48,26 +64,7 @@ const CartPage = () => {
       
     
     } 
-   }, [isSuccess, issuccess]);
-  
-  // console.log(cartItems)
-
-  // Calculate the total price for each item in the cart
- 
-
-  // Calculate the cart subtotal
-  // const cartSubtotal = cart.reduce((total, item) => {
-  //   return total + calculateTotalPrice(item);
-  // }, 0);
-
-  // Calculate the order total
-  // const orderTotal = cartSubtotal;
-  // console.log(orderTotal)
-
-  // delete an item
-  const handleDelete =   (item) => {
-   
-  };
+   }, [isSuccess]);
 
   return (
     <div className="max-w-screen-2xl container mx-auto xl:px-24 px-4">
@@ -86,7 +83,7 @@ const CartPage = () => {
       {/* cart table */}
 
       {
-        (users && users.getaUser.cart.length > 0) ? 
+        (users && cartItems.length > 0) ? 
         <div>
         <div className="">
           <div className="overflow-x-auto">
@@ -107,7 +104,7 @@ const CartPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {users && users.getaUser.cart.map((item, index) => (
+                {users && cartItems.map((item, index) => (
                  
                  item.cartDetail.map((i,inde) => (
                   <CartSingle 
@@ -136,12 +133,12 @@ const CartPage = () => {
         {Array.from({ length: Math.ceil(users.getaUser.cart.length / itemsPerPage) }).map((_, index) => (
           <button
             key={index + 1}
-            // onClick={() => paginate(index + 1)}
+             onClick={() => setCurrentPage(index + 1)}
             className={`mx-1 px-3 py-1 rounded-full ${
               currentPage === index + 1 ? "bg-green text-white" : "bg-gray-200"
             }`}
           >
-            {index + 1}
+             {index + 1}
           </button>
         ))}
       </div>
@@ -156,7 +153,7 @@ const CartPage = () => {
           </div>
           <div className="md:w-1/2 space-y-3">
             <h3 className="text-lg font-semibold">Shopping Details</h3>
-            <p>Total Items: {users && users.getaUser.cart.length}</p>
+            <p>Total Items: {users && cartItems.length}</p>
             <p>
               Total Price:${GrandTotal}/-
               {/* <span id="total-price">${orderTotal.toFixed(2)}</span> */}
