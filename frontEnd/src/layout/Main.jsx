@@ -23,27 +23,12 @@ const Main = () => {
     };
   }, []);
   return (
-    // <div className="bg-prigmayBG">
-    //    {loading ? (
-    //     <LoadingSpinner />
-    //   ) : ( 
-        <div>
-         <Suspense>
-          <Navbar/>
-          <div className="min-h-screen">
-         
-          <Outlet />
-         
-           
-          </div>
-          { isSticky && ( 
-            <Footer />
-          )}
-          </Suspense>
-        </div>
-       
-  
-  );
+   <> 
+   <Navbar/>    
+   <Outlet />
+   <Footer />
+   </>
+);
 };
 
 export default Main;

@@ -186,7 +186,7 @@ const cartDetail = (users) => {
     navigate("/");
      }
   return (
-    <div className=" drawer z-50bg-[#fff]">
+    <div className="drawer z-50bg-[#fff]">
        
         <div className="fixed w-full h-screen top-0 left-0 bg-[#00000030] z-40 flex items-center justify-center">
           <div className="w-[90%] 800px:w-[90%] h-[90vh] overflow-y-scroll 800px:h-[85vh] bg-white rounded-md shadow-sm relative p-4">
