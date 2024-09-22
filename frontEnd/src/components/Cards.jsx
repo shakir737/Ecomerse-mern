@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-// import { FaHeart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCartMutation } from "../state/user/userapi";
@@ -120,7 +120,7 @@ const handleRemoveFromCart = async(item) => {
         }`}
         onClick={handleHeartClick}
       >
-        {/* <FaHeart className="w-5 h-5 cursor-pointer" /> */}
+         <FaHeart className="w-5 h-5 cursor-pointer" /> 
       </div>
       <Link to={`/?id=${item._id}`}>
         <div className="h-full w-full">

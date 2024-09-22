@@ -1,12 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
-// import {
-//   AiFillHeart,
-//   AiOutlineHeart,
-
-//   AiOutlineShoppingCart,
-// } from "react-icons/ai";
-// import { BsCartFill } from "react-icons/bs";
-// import { RxCross1 } from "react-icons/rx";
+ import {
+  AiFillHeart,
+  AiOutlineHeart,
+  AiOutlineShoppingCart,
+ } from "react-icons/ai";
+import { BsCartFill } from "react-icons/bs";
+import { RxCross1 } from "react-icons/rx";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../styles/styles";
 import { useDispatch, useSelector } from "react-redux";
@@ -192,11 +191,11 @@ const cartDetail = (users) => {
         <div className="fixed w-full h-screen top-0 left-0 bg-[#00000030] z-40 flex items-center justify-center">
           <div className="w-[90%] 800px:w-[90%] h-[90vh] overflow-y-scroll 800px:h-[85vh] bg-white rounded-md shadow-sm relative p-4">
           <button  onClick={closeCard} >
-          {/* <RxCross1
+           <RxCross1
               size={30}
               className="absolute right-3 top-3 z-50"
              
-            /> */}
+            /> 
           </button>
 
             <div className="block w-full md:flex lg:flex xl:flex">
@@ -285,16 +284,16 @@ const cartDetail = (users) => {
                     Cart ? (
                        <span className="text-[#008000] flex items-center">
                         Remove From Cart 
-                        {/* <BsCartFill size={30}
+                        <BsCartFill size={30}
                         className="cursor-pointer"
                         onClick={() => removeFromCart(detail)}
-                        title="Remove from Cart" /> */}
+                        title="Remove from Cart" /> 
                   </span>
                     )  :  ( <div onClick={() => addToCart(detail, users.getaUser._id, detil)}><span className="text-[#008000] flex items-center">
-                        {/* Add To Cart <AiOutlineShoppingCart size={30}
+                        Add To Cart <AiOutlineShoppingCart size={30}
                         className="cursor-pointer"
                         
-                        title="Add To Cart" /> */}
+                        title="Add To Cart" /> 
                   </span></div> )) : (
                        <span className="text-[#008000] flex items-center">
                         Login First To Add In Cart
@@ -309,18 +308,18 @@ const cartDetail = (users) => {
                     click ? (
                        <span className="text-[#008000] flex items-center">
                         Remove From Wishlist 
-                        {/* <AiFillHeart size={30}
+                         <AiFillHeart size={30}
                         className="cursor-pointer"
                         onClick={() => removeFromWishlistHandler(detail, users.getaUser._id)}
-                        title="Add To Wishlist" /> */}
+                        title="Add To Wishlist" /> 
                   </span>
                     ) : (
                          <span className="text-[#008000] flex items-center">
                         Add To Wishlist
-                         {/* <AiOutlineHeart size={30}
+                         <AiOutlineHeart size={30}
                         className="cursor-pointer"
                         onClick={() => addToWishlistHandler(detail, users.getaUser._id)}
-                        title="Add To Wishlist" /> */}
+                        title="Add To Wishlist" /> 
                   </span>
                     )) : (
                        <span className="text-[#008000] flex items-center">
