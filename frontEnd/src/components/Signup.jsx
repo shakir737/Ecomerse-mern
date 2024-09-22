@@ -1,26 +1,54 @@
-import React from "react";
+import React, { useContext, useState, useEffect, lazy, Suspense } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { useForm } from "react-hook-form";
 import OAuth from "./OAuth";
-
+import { useRegistrationMutation } from "../state/auth/authapi";
 
 const Signup = () => {
 
 
   const navigate = useNavigate();
   const location = useLocation();
-
-  const from = location.state?.from?.pathname || "/";
-
+  const [registration,{ isError, isSuccess, data, error}] = useRegistrationMutation();
+ 
+  useEffect(() => {
+    if(isSuccess) {
+      const message = data?.message || "Sign Up Successfully";
+      alert(message);
+      navigate("/login");
+     } 
+    if (error) {    
+        if(isError) {
+         
+          alert(error.data.message)
+        }
+    }
+   },[isSuccess,error])
   const {
     register,
-    handleSubmit,
+    handleSubmit,reset,
     formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => {
-   
+    const firstname =data.firstname
+    const lastname =data.lastname
+    const email = data.email;
+    const password = data.password;
+
+    if(!firstname | !lastname | !email | !password){
+      alert("Please Fill All Values");
+      
+    }else {
+      const user = {firstname,lastname,email, password};
+      registration(user);
+      reset()
+      // alert(" Fill All Values");
+    }
+    
+
+  
   };
 
   // login with google
@@ -28,20 +56,36 @@ const Signup = () => {
    
   };
   return (
-    <div className="max-w-md bg-white shadow w-full mx-auto flex items-center justify-center my-20">
+    <div className="max-w-md bg-white border-8 border-[#008000] w-full mx-auto my-20">
       <div className="mb-5">
+      <div className="flex flex-row justify-end">
+      <button onClick={()=> setOpen(false)} className="btn btn-sm btn-circle btn-ghost ml-20">
+             ✕
+          </button>
+      </div>   
         <form className="card-body" onSubmit={handleSubmit(onSubmit)}>
           <h3 className="font-bold text-lg">Please Create An Account!</h3>
           {/* name */}
           <div className="form-control">
             <label className="label">
-              <span className="label-text">Name</span>
+              <span className="label-text">firstName</span>
             </label>
             <input
-              type="name"
-              placeholder="Your name"
+              type="firstname"
+              placeholder="Your firstname"
               className="input input-bordered"
-              {...register("name")}
+              {...register("firstname")}
+            />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Last Name</span>
+            </label>
+            <input
+              type="lastname"
+              placeholder="Your last name"
+              className="input input-bordered"
+              {...register("lastname")}
             />
           </div>
 

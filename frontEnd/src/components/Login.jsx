@@ -1,23 +1,20 @@
 import React, { useContext, useState, useEffect, lazy, Suspense } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-
 import { useForm } from "react-hook-form";
-import axios from "axios";
-import useAxiosPublic from "../hooks/useAxiosPublic";
 import { useLoginMutation } from '../state/auth/authapi';
 import OAuth from './OAuth';
-const  LinkItem = lazy(() => import("./Link")) ;
+import LinkItem from "./Link";
 const Login = (props) => {
 
   const {open, setOpen} = props;
   const [errorMessage, seterrorMessage] = useState("");
 
-  const axiosPublic = useAxiosPublic();
+ 
   const [login,{ isError, isSuccess, data, error}] = useLoginMutation();
   const navigate = useNavigate();
-  const location = useLocation();
 
-  const from = location.state?.from?.pathname || "/";
+
+ 
    useEffect(() => {
     if(isSuccess) {
       const message = data?.message || "Login Successfull";
@@ -26,7 +23,8 @@ const Login = (props) => {
      } 
     if (error) {    
         if(isError) {
-          toast.error("Error In Login");
+      
+          alert(error.data.message)
         }
     }
    },[isSuccess,error])
@@ -45,29 +43,22 @@ const Login = (props) => {
     reset()
 
   };
-
-  // login with google
-  // login with google
-  const handleRegister = () => {
-  
-  };
   return (
     <>
-    
-    <div className=" max-w-md bg-white shadow w-full mx-auto flex items-center justify-center my-20">
-    
-    <div className="mb-5">
-     {/* close btn */}
-           
-     <button onClick={()=> setOpen(false)} className="btn btn-sm btn-circle btn-ghost ml-80">
+    <div className=" max-w-md bg-white border-8 border-[#008000] w-full mx-auto my-20" >
+      <div className="mb-5 ">
+          {/* close btn */}
+       <div className="flex flex-row justify-end">
+          <button onClick={()=> setOpen(false)} className="btn btn-sm btn-circle btn-ghost ml-20">
              ✕
           </button>
-    <form
+        </div>     
+       <div className=" w-full flex items-center justify-center">
+         <form
             className="card-body"
             method="dialog"
-            onSubmit={handleSubmit(onSubmit)}
-          >
-            <h3 className="font-bold text-lg">Please Login!</h3>
+            onSubmit={handleSubmit(onSubmit)}>
+            <h3 className="font-bold text-lg flex items-center justify-center">Please Login!</h3>
 
             {/* email */}
             <div className="form-control">
@@ -93,12 +84,8 @@ const Login = (props) => {
                 className="input input-bordered"
                 {...register("password", { required: true })}
               />
-              <Suspense>
-              <LinkItem text="" linkText="Forget Password" forwardTo="/forgetPassword" />
-              </Suspense>
-              
+              <LinkItem text="" linkText="Forget Password" forwardTo="/forgetPassword" /> 
             </div>
-
             {/* show errors */}
             {errorMessage ? (
               <p className="text-red text-xs italic">
@@ -107,7 +94,6 @@ const Login = (props) => {
             ) : (
               ""
             )}
-
             {/* submit btn */}
             <div className="form-control mt-4">
               <input
@@ -116,15 +102,12 @@ const Login = (props) => {
                 value="Login"
               />
             </div>
-           <Suspense>
-           <LinkItem text=" Donot have an account?" linkText=" Signup Now" forwardTo="/signup" />
-           </Suspense>
-          
-            
+            <LinkItem text=" Donot have an account?" linkText=" Signup Now" forwardTo="/signup" />
           </form>
-      <OAuth /> 
+        </div>
+      </div>
+     <OAuth /> 
     </div>
-  </div>
   </>
   )
 }

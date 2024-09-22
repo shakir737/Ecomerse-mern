@@ -3,10 +3,13 @@ import { Link } from 'react-router-dom'
 const LinkItem = ({text,linkText,forwardTo}) => {
   return (
     <>
-      {text}
+     <div>
+     {text}
       <Link to={forwardTo} >
         {linkText}
      </Link>
+     </div>
+     
     </>
   )
 }
