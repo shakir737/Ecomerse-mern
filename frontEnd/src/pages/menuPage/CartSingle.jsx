@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-
+import { FaTrash } from "react-icons/fa";
 const CartSingle = ({updateCart, deleteCart, index, product, item, price,color, quantity, count, currentPage, itemsPerPage}) => {
     const { products } = useSelector((state) => state.product);
     const productDetail = products.find(products => products._id === product)
@@ -41,7 +41,6 @@ const CartSingle = ({updateCart, deleteCart, index, product, item, price,color, 
     };
     const handleDelete = async (itemID, productID) => {
       const data = {itemID, productID}
-      console.log(data);
       deleteCart(data);
     }
   return (
@@ -88,10 +87,11 @@ const CartSingle = ({updateCart, deleteCart, index, product, item, price,color, 
                       <td>${productTotal}</td>
                       <td>
                         <button
-                          className="btn btn-sm border-none text-red bg-transparent"
+                          className="btn btn-sm border-none text-green bg-transparent"
                           onClick={() => handleDelete(item._id, product)}
+                          
                         >
-                          {/* <FaTrash /> */}
+                         <FaTrash /> 
                         </button>
                       </td>
                     </tr>

@@ -70,6 +70,7 @@ const CartPage = () => {
    }, [isSuccess]);
 
   return (
+    <>
     <div className="max-w-screen-2xl container mx-auto xl:px-24 px-4">
       {/* banner */}
       <div className=" bg-gradient-to-r from-0% from-[#FAFAFA] to-[#FCFCFC] to-100%">
@@ -103,7 +104,7 @@ const CartPage = () => {
                   <th>Quantity</th>
                   <th>Unit Price</th>
                   <th>Total Price</th>
-                  <th>Action</th>
+                  <th>Delete</th>
                 </tr>
               </thead>
               <tbody>
@@ -147,9 +148,12 @@ const CartPage = () => {
              {index + 1}
           </button>
         ))}
+     
       </div>
-        <div className="flex flex-col md:flex-row justify-between items-start my-12 gap-8">
-          <div className="md:w-1/2 space-y-3">
+      <hr />
+        <div className="flex flex-col md:flex-row justify-between my-8 gap-80">
+        
+          <div className="md:w-1/2 space-y-3 ">
             <h3 className="text-lg font-semibold">Customer Details</h3>
             <p>Name: {users && users.getaUser?.firstname + users.getaUser?.lastname || "None"}</p>
             <p>Email: {users && users.getaUser?.email}</p>
@@ -157,7 +161,7 @@ const CartPage = () => {
               User_id: <span className="text-sm">{users && users.getaUser?._id}</span>
             </p>
           </div>
-          <div className="md:w-1/2 space-y-3">
+          <div className="md:w-1/2 space-y-3 ">
             <h3 className="text-lg font-semibold">Shopping Details</h3>
             <p>Total Items: {users && users.getaUser.cart.length}</p>
             <p>
@@ -169,7 +173,6 @@ const CartPage = () => {
             </button>
           </div>
         </div>
-        
       </div> : <div className="text-center mt-20">
         <p>Cart is empty. Please add products.</p>
         <Link to="/menu"><button className="btn bg-green text-white mt-3">Back to Menu</button></Link>
@@ -177,6 +180,8 @@ const CartPage = () => {
       }
       
     </div>
+    <hr />
+    </>
   );
 };
 
