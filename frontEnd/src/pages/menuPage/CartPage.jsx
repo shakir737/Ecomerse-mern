@@ -120,8 +120,8 @@ const CartPage = () => {
                      quantity={i.quantity}
                      updateCart={updateCart}
                      deleteCart={deleteCart}
-                     number={number}
-                     setNumber={setNumber}
+                     currentPage={currentPage}
+                     itemsPerPage={itemsPerPage}
                   />
                  
                  )  )
@@ -159,7 +159,7 @@ const CartPage = () => {
           </div>
           <div className="md:w-1/2 space-y-3">
             <h3 className="text-lg font-semibold">Shopping Details</h3>
-            <p>Total Items: {users && cartItems.length}</p>
+            <p>Total Items: {users && users.getaUser.cart.length}</p>
             <p>
               Total Price:${GrandTotal}/-
               {/* <span id="total-price">${orderTotal.toFixed(2)}</span> */}

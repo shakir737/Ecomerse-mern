@@ -1,22 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-const CartSingle = ({updateCart, deleteCart, index, product, item, price,color, quantity, count, number, setNumber}) => {
+const CartSingle = ({updateCart, deleteCart, index, product, item, price,color, quantity, count, currentPage, itemsPerPage}) => {
     const { products } = useSelector((state) => state.product);
     const productDetail = products.find(products => products._id === product)
-    const [value, setValue] = useState(count);
-    const [serial, setSerial] = useState(number);
-    const [productTotal, setProductTotal ] = useState(price * count)
+    const [value, setValue] = useState();
    
-    useEffect(() => {
-        setNumber(number + 1);
-       
-        }, [index])
-       
-    
-    const calculateTotalPrice = (item) => {
-      return item.price * item.quantity;
-    };
+    const [productTotal, setProductTotal ] = useState()
+   
+     useEffect(() => {
+       setValue(count);
+       setProductTotal(price * count);
+      
+     }, [[],count, currentPage, itemsPerPage])
+
     // Handle quantity increase
     const handleIncrease = async (val) => {
      
@@ -49,8 +46,8 @@ const CartSingle = ({updateCart, deleteCart, index, product, item, price,color, 
     }
   return (
     <>
-       <tr key={number}>
-                      <td>{number + 1 }</td>
+       <tr key={index}>
+                      <td>{index + ((currentPage - 1) * itemsPerPage) + 1 }</td>
                      
                       <td>
                         <div className="avatar">
