@@ -42,7 +42,7 @@ const Login = (props) => {
     <>
       <div className="drawer">
         <div className="fixed w-full h-screen top-0 left-0  flex items-center justify-center">
-          <div className="max-w-md bg-white border-8 border-[#008000] w-full mx-auto rounded ">
+          <div className="max-w-md bg-white border-8 border-green w-full mx-auto rounded ">
             <div className="mb-5 ">
               {/* close btn */}
               <div className="flex flex-row justify-end">
@@ -59,9 +59,9 @@ const Login = (props) => {
                   method="dialog"
                   onSubmit={handleSubmit(onSubmit)}
                 >
-                  <h3 className="font-bold text-lg flex items-center justify-center">
+                  <h2 className="text-green font-bold text-lg flex items-center justify-center">
                     Please Login!
-                  </h3>
+                  </h2>
 
                   {/* email */}
                   <div className="form-control">

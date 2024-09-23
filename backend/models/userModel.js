@@ -19,13 +19,13 @@ var userSchema = new mongoose.Schema(
     },
     mobile: {
       type: String,
+      default: "",
     },
     password: {
       type: String,
-       requred: true,
-      
+      requred: true,
     },
-    image:[],
+    image: [],
     role: {
       type: String,
       default: "user",
@@ -34,28 +34,36 @@ var userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    cart:[
-      { 
+    isEmailVarified: {
+      type: Boolean,
+      default: false,
+    },
+    isPhoneVarified: {
+      type: Boolean,
+      default: false,
+    },
+    cart: [
+      {
         product: {
-          type: String
+          type: String,
         },
-         cartDetail:[
+        cartDetail: [
           {
-          quantity: {
-            type: Number,
+            quantity: {
+              type: Number,
+            },
+            color: {
+              type: String,
+            },
+            price: {
+              type: Number,
+            },
+            orderQuantity: {
+              type: Number,
+              default: 0,
+            },
           },
-          color: {
-            type: String,
-          },
-          price: {
-            type: Number,
-          },
-          orderQuantity: {
-            type: Number,
-            default: 0,
-          },
-      }]
-        
+        ],
       },
     ],
     country: {
@@ -83,18 +91,18 @@ var userSchema = new mongoose.Schema(
       default: "",
     },
     account: {
-             cardNo:{
-              type: Number,
-             },
-             cardHolder:{
-               type: String,
-             },
-             expiryDate: {
-                type: Date,
-             },
-             cvv: {
-                type : Number,
-             },
+      cardNo: {
+        type: Number,
+      },
+      cardHolder: {
+        type: String,
+      },
+      expiryDate: {
+        type: Date,
+      },
+      cvv: {
+        type: Number,
+      },
     },
     wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
     refreshToken: {

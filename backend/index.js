@@ -12,14 +12,14 @@ const blogRouter = require("./routes/blogRoute");
 const categoryRouter = require("./routes/prodcategoryRoute");
 const blogcategoryRouter = require("./routes/blogCatRoute");
 const brandRouter = require("./routes/brandRoute");
-const StatesRouter = require("./routes/statesRoute")
-const CitiesRouter = require("./routes/citiesRoute")
-const CountriesRouter = require("./routes/countriesRoute")
+const StatesRouter = require("./routes/statesRoute");
+const CitiesRouter = require("./routes/citiesRoute");
+const CountriesRouter = require("./routes/countriesRoute");
 const productcategoryRouter = require("./routes/prodcategoryRoute");
 const colorRouter = require("./routes/colorRoute");
 const enqRouter = require("./routes/enqRoute");
 const couponRouter = require("./routes/couponRoute");
-const orderRouter = require("./routes/orderRoute")
+const orderRouter = require("./routes/orderRoute");
 const uploadRouter = require("./routes/uploadRoute");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
@@ -33,15 +33,19 @@ cloudinary.config({
   api_key: "377267562544887",
   api_secret: "2ajdov-hm1YUh2R5EypgM2Jf1_Y",
 });
-const whitelist = ['http://localhost:3000','http://localhost:5173','http://localhost:5174'];
-app.options( cors());
+const whitelist = [
+  "http://localhost:3000",
+  "http://localhost:5173",
+  "http://localhost:5174",
+];
+app.options(cors());
 const corsOptions = {
   credentials: true,
   origin: (origin, callback) => {
     if (whitelist.indexOf(origin) !== -1 || !origin) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      callback(new Error("Not allowed by CORS"));
     }
   },
 };
@@ -50,18 +54,18 @@ app.use(cors(corsOptions));
 
 // app.use(cors({
 //   origin: "http://localhost:3001"
-// }) ); 
+// }) );
 app.use(morgan("dev"));
 dbConnect();
-app.use(bodyParser.json({ limit:'50mb' }))
-app.use(bodyParser.urlencoded({limit:'50mb', extended: true}));
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app.use(cookieParser());
-app.use(compression(
-  {
+app.use(
+  compression({
     level: 6,
     threshold: 0,
-  }
-));
+  })
+);
 app.use("/api/user", authRouter);
 app.use("/api/product", productRouter);
 app.use("/api/blog", blogRouter);
@@ -75,17 +79,16 @@ app.use("/api/upload", uploadRouter);
 app.use("/api/category", productcategoryRouter);
 app.use("/api/States", StatesRouter);
 app.use("/api/Countries", CountriesRouter);
-app.use("/api/Cities", CitiesRouter )
-app.use("/api/orders", orderRouter)
+app.use("/api/Cities", CitiesRouter);
+app.use("/api/orders", orderRouter);
 app.post("/create-payment-intent", async (req, res) => {
-  
   const { price } = req.body;
-  const amount = price * 100;
+
   // console.log(amount);
 
-  // Create a PaymentIntent 
+  // Create a PaymentIntent
   const paymentIntent = await stripe.paymentIntents.create({
-    amount: amount,
+    amount: price,
     currency: "usd",
     payment_method_types: ["card"],
   });

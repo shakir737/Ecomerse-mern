@@ -29,9 +29,9 @@ const createUser = asyncHandler(async (req, res) => {
     /**
      * TODO:if user not found user create a new user
      */
-   
-     const newUser = await User.create(req.body);
-    
+
+    const newUser = await User.create(req.body);
+
     res.json(newUser);
   } else {
     /**
@@ -74,12 +74,13 @@ const loginUserCtrl = asyncHandler(async (req, res) => {
 
 const loginAdmin = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
- // const email = username;
+  // const email = username;
   // check if user exists or not
   const findAdmin = await User.findOne({ email });
-  if(!findAdmin || findAdmin.role != "admin")  throw new Error("EMAIL_NOT_FOUND");
+  if (!findAdmin || findAdmin.role != "admin")
+    throw new Error("EMAIL_NOT_FOUND");
 
- if (findAdmin && (await findAdmin.isPasswordMatched(password))) {
+  if (findAdmin && (await findAdmin.isPasswordMatched(password))) {
     const refreshToken = await generateRefreshToken(findAdmin?._id);
     // const expiresin = new Date(
     //   new Date().getTime() * 1.00000016
@@ -89,16 +90,15 @@ const loginAdmin = asyncHandler(async (req, res) => {
       {
         refreshToken: refreshToken,
       },
-      { new: true, },
+      { new: true }
     );
     // res.cookie("refreshToken", refreshToken, {
     //   httpOnly: true,
     // });
     res.json({
       _id: findAdmin?._id,
-      Name: findAdmin?.firstname  +" "+ findAdmin?.lastname,
+      Name: findAdmin?.firstname + " " + findAdmin?.lastname,
       token: generateToken(findAdmin?._id),
-      
     });
   } else {
     throw new Error("INVALID_PASSWORD");
@@ -124,86 +124,86 @@ const handleRefreshToken = asyncHandler(async (req, res) => {
 // user Authentication functionality
 const authenticatedUser = asyncHandler(async (req, res) => {
   const { _id } = req.user;
-  console.log( _id );
-  try{
-     const authuser = await User.findById( _id );
-     if(authuser.refreshToken == ""){
+  console.log(_id);
+  try {
+    const authuser = await User.findById(_id);
+    if (authuser.refreshToken == "") {
       res.send(400);
-     } else {
+    } else {
       res.send(200);
-     }
+    }
   } catch (error) {
     throw new Error(error);
   }
-})
+});
 // logout functionality
 
 const logout = asyncHandler(async (req, res) => {
-const { _id } = req.user;
-const { refreshToken } = req.user;
+  const { _id } = req.user;
+  const { refreshToken } = req.user;
 
-  try{
-    
+  try {
     await User.findByIdAndUpdate(
       _id,
       {
         refreshToken: "",
       },
-      { new: true, },
+      { new: true }
     );
     res.send(200);
-  }
-  catch (error) {
+  } catch (error) {
     throw new Error(error);
   }
-  
 });
 
 // Update a user
 
 const updatedUser = asyncHandler(async (req, res) => {
-  const { id } = req.params;
-  try {
-     const updatedUser = await User.findByIdAndUpdate(
-       id,
-       {
-         firstname: req?.body.firstname,
-        // lastname: req?.body?.lastname,
-         email: req?.body?.email,
-         mobile: req?.body?.mobile,
-       },
-       {
-         new: true,
-       }
-     );
-     res.json(updatedUser);
-   } catch (error) {
-     throw new Error(error);
-   }
+  console.log(req);
+  // try {
+  //   const updatedUser = await User.findByIdAndUpdate(
+  //     req._id,
+  //     {
+  //       firstname: req?.body.firstname,
+  //       lastname: req?.body?.lastname,
+  //       email: req?.body?.email,
+  //       mobile: req?.body?.mobile,
+  //       isEmailVarified: req?.body?.isEmailVarified,
+  //       isPhoneVarified: req?.body?.isPhoneVarified,
+  //     },
+  //     {
+  //       new: true,
+  //     }
+  //   );
+  //   res.json(updatedUser);
+  // } catch (error) {
+  //   throw new Error(error);
+  // }
 });
 
 const updateUser = asyncHandler(async (req, res) => {
-  const { _id } = req.user;
-  
-  
-   try {
-     const updatedUser = await User.findByIdAndUpdate(
-     _id,
-     {
-     country: req?.body?.data?.country,
-     state: req?.body?.data?.state,
-     city: req?.body?.data?.city,
-     address: req?.body?.data?.Address,
-     appartment: req?.body?.data?.Appartment,
-     },
-     {
-      new: true,
-    }
-     );
-      res.json(updatedUser);
-   } catch (error) {
-     throw new Error(error);
-   }
+  const { id } = req.params;
+
+  try {
+    const getaUser = await User.findByIdAndUpdate(
+      id,
+      {
+        firstname: req?.body?.data?.firstname,
+        lastname: req?.body?.data?.lastname,
+        email: req?.body?.data?.email,
+        mobile: req?.body?.mobile,
+        isEmailVarified: req?.body?.isEmailVarified,
+        isPhoneVarified: req?.body?.isPhoneVarified,
+      },
+      {
+        new: true,
+      }
+    );
+    const user = { getaUser };
+    res.json(user);
+  } catch (error) {
+    throw new Error(error);
+  }
 });
 
 // save user Address
@@ -245,7 +245,7 @@ const loginWithCookie = asyncHandler(async (req, res) => {
   const decoded = jwt.decode(user, process.env.JWT_SECRET);
   try {
     const findAdmin = await User.findById(decoded.id);
-    
+
     res.json({
       _id: findAdmin?._id,
       firstname: findAdmin?.firstname,
@@ -257,18 +257,18 @@ const loginWithCookie = asyncHandler(async (req, res) => {
   } catch (error) {
     throw new Error(error);
   }
-})
+});
 const getaUser = asyncHandler(async (req, res) => {
-   const { _id } = req.user;
-   const { id } = req.params;
-   try {
-     const getaUser = await User.findById(_id);
-     res.json({
+  const { _id } = req.user;
+  const { id } = req.params;
+  try {
+    const getaUser = await User.findById(_id);
+    res.json({
       getaUser,
     });
-   } catch (error) {
+  } catch (error) {
     throw new Error(error);
-   }
+  }
 });
 
 // Get a single user
@@ -392,117 +392,109 @@ const getWishlist = asyncHandler(async (req, res) => {
 const createWishlist = asyncHandler(async (req, res) => {
   const { id } = req.body;
   const { _id } = req.user;
-   try {
+  try {
     const prodInWishlist = await User.findOne({ wishlist: id });
-    if(prodInWishlist) {
+    if (prodInWishlist) {
       res.status(409).send({
-        success: false,           
+        success: false,
         message: "Product Already In Wishlist",
       });
-    } else{
+    } else {
       const updateuser = await User.findByIdAndUpdate(
         _id,
         {
           $push: { wishlist: id },
         },
         { new: true }
-       );
-       res.json(updateuser);
+      );
+      res.json(updateuser);
     }
   } catch (error) {
-      throw new Error(error);
-    }
+    throw new Error(error);
+  }
 });
 
-const removeWishlist = asyncHandler(async(req, res) => {
-  
-   const { id } = req.body;
-   const { _id } = req.user;
-    try {
-    
-      const updateuser = await User.findByIdAndUpdate(
-        _id,
-       {
+const removeWishlist = asyncHandler(async (req, res) => {
+  const { id } = req.body;
+  const { _id } = req.user;
+  try {
+    const updateuser = await User.findByIdAndUpdate(
+      _id,
+      {
         $pull: { wishlist: id },
-        },
-       { new: true }
-      );
-       res.json(updateuser);
-    
+      },
+      { new: true }
+    );
+    res.json(updateuser);
   } catch (error) {
-     throw new Error(error);
-     }
- })
-const AddToCart = asyncHandler(async(req, res) => {
-  const  id  = req.body._id;
+    throw new Error(error);
+  }
+});
+const AddToCart = asyncHandler(async (req, res) => {
+  const id = req.body._id;
   const { _id } = req.user;
   const { cartDetail } = req.body;
   try {
-            const getaUser = await User.findByIdAndUpdate(
-           _id,
-            {
-             $push: {cart: {product: id, cartDetail: cartDetail}}
-          
-            },
-            { new: true }
-         );
-     res.json({getaUser});
-       } catch (error) {
-      throw new Error(error);
-     }
-    }
-);
- 
-const updateCart =asyncHandler(async(req, res) => {
+    const getaUser = await User.findByIdAndUpdate(
+      _id,
+      {
+        $push: { cart: { product: id, cartDetail: cartDetail } },
+      },
+      { new: true }
+    );
+    res.json({ getaUser });
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
+const updateCart = asyncHandler(async (req, res) => {
   const { id, color, current } = req.body;
   const { _id } = req.user;
- 
+
   try {
-        const user = await User.findByIdAndUpdate({
-          _id,
-          "cart": {
-            "$elemMatch": {
-                "product": id, "cartDetail.color": color
-            }
-        }
-        }
-        , { "$set": { 
-          "cart.$[outer].cartDetail.$[inner].orderQuantity": current
-      } },
-      { "arrayFilters": [
-        { "outer.product": id },
-        { "inner.color": color }
-    ] },
-    )
-      if(user){
-        const getaUser = await User.findById( _id );
-        res.json({getaUser});
-      }
-       } catch (error) {
-      throw new Error(error);
-     }
-    }
-);
-const removeCart = asyncHandler(async(req, res) => {
-  const {id} = req.params;
-  const { _id } = req.user;
-  
-  try {
-    
-      const getaUser = await User.findByIdAndUpdate(
+    const user = await User.findByIdAndUpdate(
+      {
         _id,
-        {
-           $pull: {cart: {product: id}}
-          
+        cart: {
+          $elemMatch: {
+            product: id,
+            "cartDetail.color": color,
+          },
         },
-        { new: true }
-       );
-       res.json({getaUser});
-  
-  } catch (error) {
-      throw new Error(error);
+      },
+      {
+        $set: {
+          "cart.$[outer].cartDetail.$[inner].orderQuantity": current,
+        },
+      },
+      { arrayFilters: [{ "outer.product": id }, { "inner.color": color }] }
+    );
+    if (user) {
+      const getaUser = await User.findById(_id);
+      res.json({ getaUser });
     }
-})
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+const removeCart = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { _id } = req.user;
+
+  try {
+    const getaUser = await User.findByIdAndUpdate(
+      _id,
+      {
+        $pull: { cart: { product: id } },
+      },
+      { new: true }
+    );
+    res.json({ getaUser });
+  } catch (error) {
+    throw new Error(error);
+  }
+});
 
 const userCart = asyncHandler(async (req, res) => {
   const { cart } = req.body;
