@@ -173,7 +173,7 @@ const CheckoutForm = ({ price, cart, users }) => {
           </div>
         </div>
       ) : (
-        <div className="md:w-1/2 space-y-3 card shrink-0 max-w-sm shadow-2xl bg-base-100 px-4 py-8 ">
+        <div className="md:w-1/2 space-y-3 card max-w-sm shadow-2xl bg-base-100 px-4 py-8 ">
           <h4 className="text-lg font-semibold text-center justify-center">
             User Detail
           </h4>
