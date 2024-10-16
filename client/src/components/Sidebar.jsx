@@ -13,8 +13,8 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import ExpandLessOutlinedIcon from '@mui/icons-material/ExpandLessOutlined';
-import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
+import ExpandLessOutlinedIcon from "@mui/icons-material/ExpandLessOutlined";
+import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 import {
   SettingsOutlined,
   ChevronLeft,
@@ -42,14 +42,14 @@ const navItems = [
     icon: <HomeOutlined />,
     child: [
       {
-      text: "Dashboard",
-      icon: <HomeOutlined />,
-    },
-    {
-      text: "Products",
-      icon: <ShoppingCartOutlined />,
-    },
-  ]
+        text: "Dashboard",
+        icon: <HomeOutlined />,
+      },
+      {
+        text: "Products",
+        icon: <ShoppingCartOutlined />,
+      },
+    ],
   },
   {
     text: "Products",
@@ -85,10 +85,6 @@ const navItems = [
     icon: <PieChartOutlined />,
   },
   {
-    text: "Management",
-    icon: null,
-  },
-  {
     text: "Admin",
     icon: <AdminPanelSettingsOutlined />,
   },
@@ -96,19 +92,14 @@ const navItems = [
     text: "Performance",
     icon: <TrendingUpOutlined />,
     subMenuItems: [
-      { text: 'All',   icon: <TrendingUpOutlined />,},
-      { text: 'All',   icon: <TrendingUpOutlined />,},
-      { text: 'All',   icon: <TrendingUpOutlined />,},
+      { text: "All", icon: <TrendingUpOutlined /> },
+      { text: "All", icon: <TrendingUpOutlined /> },
+      { text: "All", icon: <TrendingUpOutlined /> },
     ],
   },
 ];
 
-const Sidebar = ({
-  user,
-  drawerWidth,
-  isSidebarOpen,
-  setIsSidebarOpen
-}) => {
+const Sidebar = ({ user, drawerWidth, isSidebarOpen, setIsSidebarOpen }) => {
   const { pathname } = useLocation();
   const [active, setActive] = useState("");
   const [open, setOpen] = useState(false);
@@ -119,144 +110,131 @@ const Sidebar = ({
   }, [pathname]);
 
   return (
-    <div className="border bg-[color:var(--backGround-color-light)] h-full dark:bg-[color:var(--backGround-color-dark)]">
-    <div className="text-3xl text-center text-black dark:text-white mb-10">
-    <spain> Admin Panel</spain>
-   <div className="mt-7">
-   <hr />
-   </div>
-    </div>
-   
-      {isSidebarOpen && (
-        <div >
-          <div className="w-full">
-           
-             <List>
-              {navItems.map(({ text, icon, child}) => {
-               
-                const lcText = text.toLowerCase();
-                if(!child) {
-                 
-                  return (
-                   <div className="w-full hover:bg-[color:var(--hover-color)]">
-                   <div className="flex ml-12 m-4">
+    <>
+      <div className=" fixed border flex flex-col bg-[color:var(--backGround-color-light)] h-full dark:bg-[color:var(--backGround-color-dark)]  ">
+        <div className="text-3xl text-center text-black dark:text-white mb-10">
+          <spain> Admin Panel</spain>
+        </div>
 
-                   <button  onClick={() => {
+        <div className="overflow-y-scroll">
+          <List>
+            {navItems.map(({ text, icon, child }) => {
+              const lcText = text.toLowerCase();
+              if (!child) {
+                return (
+                  <div
+                    className={`${
+                      lcText === active ? "bg-[#008000]" : ""
+                    } w-full hover:bg-[color:var(--hover-color)]`}
+                  >
+                    <div
+                      className="flex ml-3 mt-4 cursor-pointer"
+                      onClick={() => {
                         navigate(`/${lcText}`);
                         setActive(lcText);
-                    }}>
-                    <div className="flex font-bold">
-                   <div className="">
-                    {icon}
-                  </div>
-                  <div className="ml-9 text-xl font-bold ">
-                  { text}  
-                   
-                  </div>
-                  </div>
-                  </button>
-                  
-                   </div>
-                   </div> 
-                );
-                } else {
-                  return (
-                    <>
-                    <div className="w-full hover:bg-[color:var(--hover-color)]">
-                   <div className="flex ml-12 m-4 relative">
-                  <button
-                      onClick={() => {
-                        setOpen(!open);
-                      }}>
-                     
-                     <div className="flex font-bold">
-                   <div className="">
-                    {icon}
-                  </div>
-                  <div className="ml-9 text-xl font-bold ">
-                  { text}  
-                   
-                  </div>
-                  <div className="absolute top-0 right-0">
-                  {open ? <ExpandLessOutlinedIcon /> : <ExpandMoreOutlinedIcon />}
-                  </div>
-                  </div>
-                     
-                    </button>
-                    </div>
-                    </div>
-                    { open ? (
-                      <List>
-                        {
-                          child && child?.map(({text, icon}) => {
-                            const childNavigate = text.toLowerCase();
-                           return (
-                            <div className="w-full hover:bg-[color:var(--hover-color)]">
-                            <div className="flex ml-12 relative">
-                            <button  onClick={() => {
-                                  navigate(`/${childNavigate}`);
-                                  setActive(childNavigate);
-                              }}>
-                       <div className="flex ml-2 font-bold">
-                   <div className="">
-                    {icon}
-                  </div>
-                  <div className="text-xl ml-9 font-bold ">
-                  { text}  
-                   
-                  </div>
-                  </div>
+                      }}
+                    >
+                      <button>
+                        <div className="flex font-bold p-1">
+                          <div className="">{icon}</div>
+                          <div className="ml-9 text-xl font-bold ">{text}</div>
+                        </div>
                       </button>
+                    </div>
+                  </div>
+                );
+              } else {
+                return (
+                  <>
+                    <div className="w-full hover:bg-[color:var(--hover-color)]">
+                      <div
+                        className="flex ml-3 relative cursor-pointer"
+                        onClick={() => {
+                          setOpen(!open);
+                        }}
+                      >
+                        <button>
+                          <div className="flex justify-between font-bold p-1 ">
+                            <div className="">{icon}</div>
+                            <div className="ml-9 text-xl font-bold ">
+                              {text}
                             </div>
-                          
+                            <div className="absolute top-0 right-0">
+                              {open ? (
+                                <ExpandLessOutlinedIcon />
+                              ) : (
+                                <ExpandMoreOutlinedIcon />
+                              )}
                             </div>
-                             
-                            )
-                        })
-                        }
+                          </div>
+                        </button>
+                      </div>
+                    </div>
+                    {open ? (
+                      <List>
+                        {child &&
+                          child?.map(({ text, icon }) => {
+                            const childNavigate = text.toLowerCase();
+                            return (
+                              <div
+                                className={`${
+                                  childNavigate === active ? "bg-[#008000]" : ""
+                                } w-full hover:bg-[color:var(--hover-color)]`}
+                              >
+                                <div
+                                  className="flex ml-6 relative cursor-pointer"
+                                  onClick={() => {
+                                    navigate(`/${childNavigate}`);
+                                    setActive(childNavigate);
+                                  }}
+                                >
+                                  <button>
+                                    <div className="flex ml-3 gap-4 p-1 cursor-pointer">
+                                      <div className="">{icon}</div>
+                                      <div className="text-sm font-medium ml-4 ">
+                                        {text}
+                                      </div>
+                                    </div>
+                                  </button>
+                                </div>
+                              </div>
+                            );
+                          })}
                       </List>
-                     ) : (
+                    ) : (
                       <div></div>
                     )}
-                     
-                   
-                   
-                    </>
-                  );
-                }
-               
-              })}
-            </List> 
-          </div>
- 
-          <div className="w-full mt-20">
-          <hr />
-          </div>
-          <Box position="absolute">
-         
-          
-            <FlexBetween textTransform="none" gap="1rem" m="1.5rem 2rem 0 3rem">
-              <Box
-                component="img"
-                alt="profile"
-                src={profileImage}
-                height="40px"
-                width="40px"
-                borderRadius="50%"
-                sx={{ objectFit: "cover" }}
-              />
-             
-              <SettingsOutlined
-                sx={{
-                  color: theme.palette.secondary[300],
-                  fontSize: "25px ",
-                }}
-              />
-            </FlexBetween>
-          </Box>
+                  </>
+                );
+              }
+            })}
+          </List>
         </div>
-      )}
-    </div>
+
+        <div className="mb-4 flex justify-between pr-15 bg-white dark:bg-[color:var(--backGround-color-dark)] gap-10 ">
+          <div className="ml-10 mr-10">
+            <Box
+              component="img"
+              alt="profile"
+              src={profileImage}
+              height="40px"
+              width="40px"
+              borderRadius="50%"
+              sx={{ objectFit: "cover" }}
+            />
+          </div>
+
+          <div className="ml-10 pr-7">
+            <SettingsOutlined
+              sx={{
+                color: theme.palette.secondary[300],
+                fontSize: "25px ",
+              }}
+            />
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 

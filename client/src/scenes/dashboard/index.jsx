@@ -20,7 +20,12 @@ import BreakdownChart from "../../components/BreakdownChart";
 import OverviewChart from "../../components/OverviewChart";
 import { useGetDashboardQuery } from "../../state/api";
 import StatBox from "../../components/StatBox";
-
+import UserCard from "../../components/UserCard";
+import CountChart from "./../../components/CountChart";
+import AttendanceChart from "./../../components/AttendanceChart";
+import FinanceChart from "../../components/FinanceChart";
+import EventCalendar from "../../components/EventCalendar";
+import Announcements from "./../../components/Announcements";
 const Dashboard = () => {
   const theme = useTheme();
   const isNonMediumScreens = useMediaQuery("(min-width: 1200px)");
@@ -58,142 +63,46 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="m-5" >
+    <div className="m-5">
       <div className="flex justify-between">
         <div>
-        <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
+          <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
         </div>
         <div>
           <button className="button">
-            <DownloadOutlined  />
+            <DownloadOutlined />
             Download Reports
           </button>
         </div>
       </div>
 
-      <Box
-        mt="20px"
-        display="grid"
-        gridTemplateColumns="repeat(12, 1fr)"
-        gridAutoRows="160px"
-        gap="20px"
-        sx={{
-          "& > div": { gridColumn: isNonMediumScreens ? undefined : "span 12" },
-        }}
-      >
-        {/* ROW 1 */}
-        <StatBox
-          title="Total Customers"
-          value={data && data.totalCustomers}
-          increase="+14%"
-          description="Since last month"
-          icon={
-            <Email
-              sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
-            />
-          }
-        />
-        <StatBox
-          title="Sales Today"
-          value={data && data.todayStats.totalSales}
-          increase="+21%"
-          description="Since last month"
-          icon={
-            <PointOfSale
-              sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
-            />
-          }
-        />
-        <Box
-          gridColumn="span 8"
-          gridRow="span 2"
-          backgroundColor={theme.palette.background.alt}
-          p="1rem"
-          borderRadius="0.55rem"
-        >
-          <OverviewChart view="sales" isDashboard={true} />
-        </Box>
-        <StatBox
-          title="Monthly Sales"
-          value={data && data.thisMonthStats.totalSales}
-          increase="+5%"
-          description="Since last month"
-          icon={
-            <PersonAdd
-              sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
-            />
-          }
-        />
-        <StatBox
-          title="Yearly Sales"
-          value={data && data.yearlySalesTotal}
-          increase="+43%"
-          description="Since last month"
-          icon={
-            <Traffic
-              sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
-            />
-          }
-        />
-
-        {/* ROW 2 */}
-        <Box
-          gridColumn="span 8"
-          gridRow="span 3"
-          sx={{
-            "& .MuiDataGrid-root": {
-              border: "none",
-              borderRadius: "5rem",
-            },
-            "& .MuiDataGrid-cell": {
-              borderBottom: "none",
-            },
-            "& .MuiDataGrid-columnHeaders": {
-              backgroundColor: theme.palette.background.alt,
-              color: theme.palette.secondary[100],
-              borderBottom: "none",
-            },
-            "& .MuiDataGrid-virtualScroller": {
-              backgroundColor: theme.palette.background.alt,
-            },
-            "& .MuiDataGrid-footerContainer": {
-              backgroundColor: theme.palette.background.alt,
-              color: theme.palette.secondary[100],
-              borderTop: "none",
-            },
-            "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-              color: `${theme.palette.secondary[200]} !important`,
-            },
-          }}
-        >
-          <DataGrid
-            loading={isLoading || !data}
-            getRowId={(row) => row._id}
-            rows={(data && data.transactions) || []}
-            columns={columns}
-          />
-        </Box>
-        <Box
-          gridColumn="span 4"
-          gridRow="span 3"
-          backgroundColor={theme.palette.background.alt}
-          p="1.5rem"
-          borderRadius="0.55rem"
-        >
-          <Typography variant="h6" sx={{ color: theme.palette.secondary[100] }}>
-            Sales By Category
-          </Typography>
-          <BreakdownChart isDashboard={true} />
-          <Typography
-            p="0 0.6rem"
-            fontSize="0.8rem"
-            sx={{ color: theme.palette.secondary[200] }}
-          >
-            Breakdown of real states and information via category for revenue
-            made for this year and total sales.
-          </Typography>
-        </Box>
-      </Box>
+      <div className="flex gap-4 justify-between mt-4">
+        <div className="flex flex-col lg:w-3/4">
+          <div className="flex flex-between gap-3">
+            <UserCard type="student" />
+            <UserCard type="teacher" />
+            <UserCard type="parent" />
+            <UserCard type="staff" />
+          </div>
+          <div className="flex gap-4 flex-col lg:flex-row mt-4">
+            {/* COUNT CHART */}
+            <div className="w-full lg:w-1/3 h-[450px]">
+              <CountChart />
+            </div>
+            {/* ATTENDANCE CHART */}
+            <div className="w-full lg:w-2/3 h-[450px]">
+              <AttendanceChart />
+            </div>
+          </div>
+          <div className="w-full h-[500px] mt-4">
+            <FinanceChart />
+          </div>
+        </div>
+        <div className="w-full lg:w-1/4 flex flex-col gap-4">
+          <EventCalendar />
+          <Announcements />
+        </div>
+      </div>
     </div>
   );
 };
