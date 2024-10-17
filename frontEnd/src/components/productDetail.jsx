@@ -13,6 +13,7 @@ import { useCartMutation } from "../state/user/userapi";
 import { useDeleteCartMutation } from "../state/user/userapi";
 import { useSearchParams } from "react-router-dom";
 import { redirect } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const ProductDetailsCard = ({ setOpen, open }) => {
   const productState = useSelector((state) => state.product.products);
@@ -135,7 +136,7 @@ const ProductDetailsCard = ({ setOpen, open }) => {
 
     const result = await cart(Cart);
     if (result) {
-      alert("Items Are Successfully Added In Cart");
+      toast.success("Items Are Successfully Added In Cart");
       setCart(true);
     }
   };
@@ -144,7 +145,7 @@ const ProductDetailsCard = ({ setOpen, open }) => {
     const result = await deleteCart(data);
     const { getaUser } = result.data;
     if (result) {
-      alert("Items Remove From Cart");
+      toast.success("Items Remove From Cart");
       setCart(false);
     }
   };
@@ -211,7 +212,7 @@ const ProductDetailsCard = ({ setOpen, open }) => {
                 </div>
               </div>
               <div className="border-[8px] shadow rounded-md mt-4">
-                <div className="flex items-center justify-center">
+                {/* <div className="flex items-center justify-center">
                   <span className="items-center"> Messages</span>
                 </div>
                 {productInfo
@@ -222,9 +223,9 @@ const ProductDetailsCard = ({ setOpen, open }) => {
                         {message.message}
                       </div>
                     ))
-                  : null}
+                  : null} */}
 
-                <div className="w-[100%] relative">
+                {/* <div className="w-[100%] relative">
                   <form onSubmit={handleSubmit}>
                     <div className="flex">
                       <input
@@ -244,7 +245,7 @@ const ProductDetailsCard = ({ setOpen, open }) => {
                       </button>
                     </div>
                   </form>
-                </div>
+                </div> */}
               </div>
             </div>
 

@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import { useLoginMutation } from "../state/auth/authapi";
 import OAuth from "./OAuth";
 import LinkItem from "./Link";
+import toast from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 const Login = (props) => {
   const { openLogin, setOpenLogin, setOpenSignup } = props;
   const [errorMessage, seterrorMessage] = useState("");
@@ -14,13 +16,13 @@ const Login = (props) => {
   useEffect(() => {
     if (isSuccess) {
       const message = data?.message || "Login Successfull";
-      alert(message);
+      toast.success(message);
       setOpenLogin(false);
       navigate("/");
     }
     if (error) {
       if (isError) {
-        alert(error.data.message);
+        toast.error(error.data.message);
       }
     }
   }, [isSuccess, error]);
@@ -45,6 +47,7 @@ const Login = (props) => {
   };
   return (
     <>
+      {/* <Toaster position="top-center" reverseOrder={false} /> */}
       <div className="drawer">
         <div className="fixed w-full h-screen top-0 left-0  flex items-center justify-center">
           <div className="max-w-md bg-white border-8 border-green w-full mx-auto rounded ">

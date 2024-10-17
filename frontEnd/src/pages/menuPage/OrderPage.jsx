@@ -10,7 +10,6 @@ const OrderPage = () => {
     if (users) {
       console.log(users.getaUser._id);
       getOrders(users.getaUser._id);
-      console.log(orders.length);
     }
   }, []);
   return (
