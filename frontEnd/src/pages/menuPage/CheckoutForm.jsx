@@ -115,7 +115,7 @@ const CheckoutForm = ({ price, cart, users }) => {
               alert(
                 `Congragulations! your order is created successfully and Your transitionId is: ${transitionId}`
               );
-              navigate("/order");
+              navigate("/orders");
             }
           });
       }
