@@ -80,22 +80,7 @@ const Navbar = () => {
             />
           </Link>
           <div className="dropdown justify-between">
-            <label tabIndex={0} className="btn btn-ghost lg:hidden">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />
-              </svg>
-            </label>
+            <label tabIndex={0} className="btn btn-ghost lg:hidden"></label>
             <ul
               tabIndex={0}
               className="menu dropdown-content mt-4 z-[2] p-2 shadow bg-base-100 rounded-box w-64 space-y-6"
@@ -165,9 +150,10 @@ const Navbar = () => {
             <>
               {/* <Profile user={users.getaUser} /> */}
               <div className="">
-                <button className="btn flex items-center gap-2 rounded-full px-6 bg-green text-white hover:text-[#0000FF]">
-                  Apply For Sealer
-                </button>
+                <Profile user={users.getaUser} />
+                {/* <button className="btn flex items-center gap-2 rounded-full px-6 bg-green text-white hover:text-[#0000FF]">
+                  Log out
+                </button> */}
               </div>
             </>
           ) : (

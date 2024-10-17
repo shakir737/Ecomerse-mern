@@ -1,10 +1,11 @@
 import React, { useContext, useState } from "react";
-import avatarImg from "/images/avatar.jpg"
+import avatarImg from "/images/avatar.jpg";
 import { Link, useNavigate } from "react-router-dom";
+import NavbarChild from "./NavbarChild";
 
 const Profile = ({ user }) => {
   // const { logOut } = useContext(AuthContext);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // logout
   // const handleLogout = () => {
@@ -20,7 +21,14 @@ const Profile = ({ user }) => {
 
   return (
     <div>
-      <div className="drawer z-50">
+      <div className="hidden md:btn-ghost md:btn-circle md:avatar w-10 rounded-full">
+        {user.photoURL ? (
+          <img alt="" src={user.photoURL} />
+        ) : (
+          <img alt="" src={avatarImg} />
+        )}
+      </div>
+      <div className="drawer md:z-50 md:hidden">
         <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content">
           {/* Page content here */}
@@ -29,8 +37,11 @@ const Profile = ({ user }) => {
             className="drawer-button btn btn-ghost btn-circle avatar"
           >
             <div className="w-10 rounded-full">
-              {user.photoURL? <img alt="" src={user.photoURL} /> : <img alt="" src={avatarImg} />}
-              
+              {user.photoURL ? (
+                <img alt="" src={user.photoURL} />
+              ) : (
+                <img alt="" src={avatarImg} />
+              )}
             </div>
           </label>
         </div>
@@ -40,24 +51,10 @@ const Profile = ({ user }) => {
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-          <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+          <div className="menu p-4 w-30 min-h-full bg-base-200 text-base-content">
             {/* Sidebar content here */}
-            <li>
-              <Link to="/update-profile">Profile</Link>
-            </li>
-            <li>
-              <Link to="/order">Order</Link>
-            </li>
-            <li>
-              <a>Settings</a>
-            </li>
-            <li>
-              <Link to="/dashboard">Dashboard</Link>
-            </li>
-            <li>
-             <a href="/login">Logout</a>
-            </li>
-          </ul>
+            <NavbarChild />
+          </div>
         </div>
       </div>
     </div>
