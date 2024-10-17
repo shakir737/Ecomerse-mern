@@ -19,7 +19,7 @@ var userSchema = new mongoose.Schema(
     },
     mobile: {
       type: String,
-      default: "",
+      required: true,
     },
     password: {
       type: String,

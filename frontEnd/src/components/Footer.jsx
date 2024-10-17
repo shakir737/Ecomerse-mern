@@ -7,7 +7,7 @@ const Footer = () => {
         <aside>
           <img src={logo} loading="lazy" alt="" />
           <p className="my-3 md:w-40">
-            Savor the artistry where every dish is a culinary masterpiece
+            Savor the artistry where every product is a culinary masterpiece
           </p>
         </aside>
         <nav>
@@ -31,8 +31,8 @@ const Footer = () => {
           <a className="link link-hover">Social media</a>
         </nav>
       </footer>
-        <hr />
-      <footer className="footer items-center xl:px-24 px-4 py-4 mt-2">
+      <hr />
+      <footer className="text-xs md:text-sm footer md:flex md:justify-center items-center xl:px-24 px-4 py-4 mt-2">
         <aside className="items-center grid-flow-col">
           <p>Copyright © 2023 - All right reserved</p>
         </aside>

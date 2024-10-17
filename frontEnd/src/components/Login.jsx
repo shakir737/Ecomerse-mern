@@ -5,7 +5,7 @@ import { useLoginMutation } from "../state/auth/authapi";
 import OAuth from "./OAuth";
 import LinkItem from "./Link";
 const Login = (props) => {
-  const { open, setOpen } = props;
+  const { openLogin, setOpenLogin, setOpenSignup } = props;
   const [errorMessage, seterrorMessage] = useState("");
 
   const [login, { isError, isSuccess, data, error }] = useLoginMutation();
@@ -15,6 +15,7 @@ const Login = (props) => {
     if (isSuccess) {
       const message = data?.message || "Login Successfull";
       alert(message);
+      setOpenLogin(false);
       navigate("/");
     }
     if (error) {
@@ -23,6 +24,10 @@ const Login = (props) => {
       }
     }
   }, [isSuccess, error]);
+  const loginSignupChange = () => {
+    setOpenLogin(false);
+    setOpenSignup(true);
+  };
   //react hook form
   const {
     register,
@@ -47,7 +52,7 @@ const Login = (props) => {
               {/* close btn */}
               <div className="flex flex-row justify-end">
                 <button
-                  onClick={() => setOpen(false)}
+                  onClick={() => setOpenLogin(false)}
                   className="btn btn-sm btn-circle btn-ghost ml-20"
                 >
                   ✕
@@ -109,11 +114,12 @@ const Login = (props) => {
                       value="Login"
                     />
                   </div>
-                  <LinkItem
-                    text=" Donot have an account?"
-                    linkText=" Signup Now"
-                    forwardTo="/signup"
-                  />
+                  <div onClick={loginSignupChange}>
+                    <LinkItem
+                      text=" Donot have an account?"
+                      linkText=" Signup Now"
+                    />
+                  </div>
                 </form>
               </div>
             </div>

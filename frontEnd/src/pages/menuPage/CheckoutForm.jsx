@@ -94,9 +94,6 @@ const CheckoutForm = ({ price, cart, users }) => {
 
       if (paymentIntent.status === "succeeded") {
         const transitionId = paymentIntent.id;
-        console.log(transitionId);
-        setcardError(`Your transitionId is: ${transitionId}`);
-
         //   // save payment info to server
         const paymentInfo = {
           email: users.getaUser.email,
@@ -110,12 +107,14 @@ const CheckoutForm = ({ price, cart, users }) => {
 
         // send payment info
         axios
-          .post("http://localhost:3000/api/orders/create-order", {
+          .post("http://localhost:4000/api/orders/create-order", {
             paymentInfo,
           })
           .then((res) => {
             if (res.data) {
-              alert("Payment info sent successfully!");
+              alert(
+                `Congragulations! your order is created successfully and Your transitionId is: ${transitionId}`
+              );
               navigate("/order");
             }
           });

@@ -8,13 +8,15 @@ import { useUserMutation } from "../state/user/userapi";
 import { productCategory } from "./../static/data";
 import DropDown from "./DropDown";
 import NavbarChild from "./NavbarChild";
+import Signup from "./Signup";
 
 const Navbar = () => {
   const [isSticky, setSticky] = useState(false);
   const { token } = useSelector((state) => state.auth);
   const { users } = useSelector((state) => state.users);
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
+  const [openLogin, setOpenLogin] = useState(false);
+  const [openSignup, setOpenSignup] = useState(false);
   const [dropDown, setDropDown] = useState(false);
   const [selected, setSelected] = useState("Home");
   const [user, { isSuccess }] = useUserMutation();
@@ -45,7 +47,20 @@ const Navbar = () => {
     <header
       className={`max-w-screen-2xl container mx-auto fixed top-0 left-0 right-0 transition-all duration-300 ease-in-out`}
     >
-      {open ? <Login open={open} setOpen={setOpen} /> : <></>}
+      {openLogin ? (
+        <Login
+          openLogin={openLogin}
+          setOpenLogin={setOpenLogin}
+          setOpenSignup={setOpenSignup}
+        />
+      ) : (
+        <></>
+      )}
+      {openSignup ? (
+        <Signup setOpenLogin={setOpenLogin} setOpenSignup={setOpenSignup} />
+      ) : (
+        <></>
+      )}
       <div
         className={`navbar xl:px-24 ${
           isSticky
@@ -148,11 +163,16 @@ const Navbar = () => {
 
           {users ? (
             <>
-              <Profile user={users.getaUser} />
+              {/* <Profile user={users.getaUser} /> */}
+              <div className="">
+                <button className="btn flex items-center gap-2 rounded-full px-6 bg-green text-white hover:text-[#0000FF]">
+                  Apply For Sealer
+                </button>
+              </div>
             </>
           ) : (
             <button
-              onClick={() => setOpen(true)}
+              onClick={() => setOpenLogin(true)}
               className="btn flex items-center gap-2 rounded-full px-6 bg-green text-white hover:text-[#0000FF]"
             >
               Login
